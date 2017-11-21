@@ -110,12 +110,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     public void onSignedInIntialized(String email) {
-        //TODO Set email and download data
         userEmail = email;
     }
 
     public void onSignedOutCleanUp() {
-        //TODO Unset email and clear all data
         userEmail = null;
     }
 
@@ -130,12 +128,18 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if(id == R.id.settings){
-            Context context = this;
-            Intent intent = new Intent(context,SettingsActivity.class);
-            startActivity(intent);
-            return true;
+        switch (id){
+            case R.id.settings:
+                Context context = this;
+                Intent intent = new Intent(context,SettingsActivity.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.signout:
+                AuthUI.getInstance().signOut(this);
+                return true;
         }
+
         return true;
     }
 
