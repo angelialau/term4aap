@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:key="@string/translate_pref"
+        android:title="@string/translate_to_chinese"
+        android:defaultValue="false"
+        android:summaryOn="Back to English"
+        android:summaryOff="翻译成华文"
+        />
+    <ListPreference
+        android:key="@string/route_pref"
+        android:title="@string/routes"
+        android:defaultValue="@string/best_route"
+        android:entries="@array/route_entries"
+        android:entryValues="@array/route_values"
+        android:summary="%s"
+         />
+    <ListPreference
+        android:key="@string/place_pref"
+        android:title="@string/preferred_place_of_worship"
+        android:defaultValue="@string/no_preference"
+        android:entries="@array/place_entries"
+        android:entryValues="@array/place_values"
+        android:summary="%s"/>
+
+
+</PreferenceScreen>
