@@ -3,8 +3,9 @@ package com.example.angelia.term4androidappproject;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -16,10 +17,7 @@ import java.util.Arrays;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.ListPreference;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,15 +32,49 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
 
-    private String userEmail = null;
+    public static String userEmail = null;
+
+    public Button buttonMyItinerary;
+    public Button buttonFindNearMe;
+    public Button buttonStartNewItinerary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        // Connecting all the buttons to views
+        buttonFindNearMe = findViewById(R.id.find_near_me_button);
+        buttonMyItinerary = findViewById(R.id.my_itinerary_button);
+        buttonStartNewItinerary = findViewById(R.id.start_itinerary_button);
 
+        // Setup OnClick listeners
+        buttonStartNewItinerary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO wire up to the right activity
+                Intent intent = new Intent();
+            }
+        });
+
+        buttonMyItinerary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(),ItineraryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonFindNearMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO wire up to the right activity
+                Intent intent = new Intent();
+            }
+        });
+
+        // Setting up objects related to Authentication
+        firebaseAuth = FirebaseAuth.getInstance();
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -67,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
         };
 
+        // Setting up Shared Preferences
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPref.registerOnSharedPreferenceChangeListener(this);
 
