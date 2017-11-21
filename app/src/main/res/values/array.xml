@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="route_entries">
+        <item>@string/best_route</item>
+        <item>@string/least_walking</item>
+        <item>@string/least_transfers</item>
+    </string-array>
+
+    <string-array name="route_values">
+        <item>default</item>
+        <item>less_walking</item>
+        <item>fewer_transfers</item>
+    </string-array>
+
+    <string-array name="place_entries">
+        <item>@string/no_preference</item>
+        <item>@string/chinese_temple</item>
+        <item>@string/church</item>
+        <item>@string/hindu_temple</item>
+        <item>@string/mosque</item>
+    </string-array>
+
+    <string-array name="place_values">
+    <item>No preference</item>
+    <item>Chinese Temple</item>
+    <item>Church</item>
+    <item>Hindu Temple</item>
+    <item>Mosque</item>
+    </string-array>
+
+</resources>
