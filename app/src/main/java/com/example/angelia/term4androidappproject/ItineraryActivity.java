@@ -28,8 +28,8 @@ public class ItineraryActivity extends AppCompatActivity {
         Date date = new Date();
 
         ItineraryItem a = new ItineraryItem(date, list,"temple");
-        ItineraryItem b = new ItineraryItem(date, list, "temple");
-        ItineraryItem c = new ItineraryItem(date, list, "temple");
+        ItineraryItem b = new ItineraryItem(date, list, "church");
+        ItineraryItem c = new ItineraryItem(date, list, "mosque");
         ItineraryItem d = new ItineraryItem(date, list, "temple");
 
         List<ItineraryItem> itineraryItems = Arrays.asList(a,b,c,d);

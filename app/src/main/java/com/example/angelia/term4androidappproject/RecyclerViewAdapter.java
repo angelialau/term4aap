@@ -1,9 +1,11 @@
 package com.example.angelia.term4androidappproject;
 
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -18,11 +20,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView date, place;
+        public ImageView type;
 
         public ViewHolder(View view) {
             super(view);
             date = view.findViewById(R.id.dateTextView);
             place = view.findViewById(R.id.placeTextView);
+            type = view.findViewById(R.id.typeImageView);
         }
     }
 
@@ -45,6 +49,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.date.setText(df.format("dd MMM yyyy", item.getDate()));
         holder.place.setText(item.getPlaces().get(0));
+
+        switch (item.getType().toLowerCase()){
+            case "temple":
+                holder.type.setImageResource(R.drawable.temple);
+                break;
+            case "church":
+                holder.type.setImageResource(R.drawable.church);
+                break;
+            case "mosque":
+                holder.type.setImageResource(R.drawable.mosque);
+                holder.type.setPadding(0,0,0,0);
+        }
     }
 
     @Override
