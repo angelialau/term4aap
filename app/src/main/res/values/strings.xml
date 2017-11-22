@@ -29,6 +29,7 @@
     <string name="route_pref">preferred route</string>
     <string name="translate_pref">translate pref</string>
     <string name="place_pref"> preferred place of worship</string>
+    <string name="title_activity_find_near_me">Map</string>
 
 
 </resources>
