@@ -65,14 +65,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
         });
 
-        buttonFindNearMe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO wire up to the right activity
-                Intent intent = new Intent();
-            }
-        });
-
         // Setting up objects related to Authentication
         firebaseAuth = FirebaseAuth.getInstance();
         authStateListener = new FirebaseAuth.AuthStateListener() {
@@ -109,8 +101,17 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         String inputRoutePref = sharedPref.getString(getString(R.string.route_pref),"default"); //default " ", else, best_route, less_walking, fewer_transfers
         Log.i("Angelia", "oncreate route preference: " + inputRoutePref);
 
-        String inputPlacePref = sharedPref.getString(getString(R.string.place_pref), "no preference");
+        final String inputPlacePref = sharedPref.getString(getString(R.string.place_pref), "no preference");
         Log.i("Angelia", "oncreate place preference: " + inputPlacePref);
+
+        buttonFindNearMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(v.getContext(),NearMe.class);
+                intent.putExtra("PlacePref",inputPlacePref);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
