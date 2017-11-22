@@ -30,4 +30,5 @@ public class ItineraryItem {
     public String getType() {
         return type;
     }
+
 }
