@@ -42,8 +42,7 @@ public class NearMe extends FragmentActivity implements OnMapReadyCallback,
     Spinner placeSpinner;
     String choice;
     Button goButton;
-
-
+    boolean clicked = false;
     private GoogleMap mMap;
     double latitude;
     double longitude;
@@ -65,7 +64,7 @@ public class NearMe extends FragmentActivity implements OnMapReadyCallback,
         places[3] = getString(R.string.church);
 
         Intent intent = getIntent();
-        String placePref = intent.getStringExtra("PlacePref");
+        final String placePref = intent.getStringExtra("PlacePref");
         placeSpinner = (Spinner) findViewById(R.id.placeSpinner);
 
         Log.i("kim",placePref);
@@ -76,7 +75,12 @@ public class NearMe extends FragmentActivity implements OnMapReadyCallback,
         placeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                choice = places[position];
+                if(!clicked){
+                    choice = places[position];
+                }else{
+                    choice = placePref;
+                    clicked = true;
+                }
 
             }
 
@@ -194,7 +198,9 @@ public class NearMe extends FragmentActivity implements OnMapReadyCallback,
         StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlacesUrl.append("location=" + latitude + "," + longitude);
         googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
-        googlePlacesUrl.append("&type=" + nearbyPlace);
+        if(nearbyPlace.equals(getString(R.string.hindu_temple))){nearbyPlace = "hindu_temple";}
+        googlePlacesUrl.append("&type=" + nearbyPlace.toLowerCase());
+        googlePlacesUrl.append("&keyword=" + nearbyPlace.toLowerCase());
         googlePlacesUrl.append("&sensor=true");
         googlePlacesUrl.append("&key=" + "AIzaSyATuUiZUkEc_UgHuqsBJa1oqaODI-3mLs0");
         Log.d("getUrl", googlePlacesUrl.toString());
