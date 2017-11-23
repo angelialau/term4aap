@@ -49,13 +49,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         buttonStartNewItinerary = findViewById(R.id.start_itinerary_button);
 
         // Setup OnClick listeners
-        buttonStartNewItinerary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO wire up to the right activity
-                Intent intent = new Intent();
-            }
-        });
+        buttonStartNewItinerary.setOnClickListener(buttonStartNewItineraryOnClickListener);
 
         buttonMyItinerary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,14 +60,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         });
 
         buttonFindNearMe.setOnClickListener(buttonFindNearMeOnClickListener);
-      /*  buttonFindNearMe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                Intent intent = new Intent(v.getContext(),NearMe.class);
-                intent.putExtra("PlacePref",preferences.getPlacePref());
-                startActivity(intent);
-            }
-        });*/
+
         // Setting up objects related to Authentication
         firebaseAuth = FirebaseAuth.getInstance();
         authStateListener = new FirebaseAuth.AuthStateListener() {
@@ -120,6 +107,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(v.getContext(),NearMe.class);
+            intent.putExtra("PlacePref",preferences.getPlacePref());
+            startActivity(intent);
+        }};
+
+    View.OnClickListener buttonStartNewItineraryOnClickListener =  new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(v.getContext(),newItinerary.class);
             intent.putExtra("PlacePref",preferences.getPlacePref());
             startActivity(intent);
         }};
