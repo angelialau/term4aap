@@ -53,7 +53,17 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/homepage_name2"
+        android:layout_marginTop="62dp"
         tools:context="com.example.angelia.term4androidappproject.NearMe" />
+
+    <Button
+        android:id="@+id/goButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/homepage_name2"
+        android:text="Go" />
 
 </RelativeLayout>
 
