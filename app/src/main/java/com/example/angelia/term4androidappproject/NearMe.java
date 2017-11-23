@@ -38,7 +38,7 @@ public class NearMe extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
-    String[] places = new String[4];
+    String[] places = new String[3];
     Spinner placeSpinner;
     String choice;
     Button goButton;
@@ -46,7 +46,7 @@ public class NearMe extends FragmentActivity implements OnMapReadyCallback,
     private GoogleMap mMap;
     double latitude;
     double longitude;
-    private int PROXIMITY_RADIUS = 500;
+    private int PROXIMITY_RADIUS = 10000;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
@@ -59,9 +59,8 @@ public class NearMe extends FragmentActivity implements OnMapReadyCallback,
         setContentView(R.layout.activity_find_near_me);
 
         places[0]=getString(R.string.hindu_temple);
-        places[1] = getString(R.string.chinese_temple);
-        places[2] = getString(R.string.mosque);
-        places[3] = getString(R.string.church);
+        places[1] = getString(R.string.mosque);
+        places[2] = getString(R.string.church);
 
         Intent intent = getIntent();
         final String placePref = intent.getStringExtra("PlacePref");
@@ -198,9 +197,13 @@ public class NearMe extends FragmentActivity implements OnMapReadyCallback,
         StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlacesUrl.append("location=" + latitude + "," + longitude);
         googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
-        if(nearbyPlace.equals(getString(R.string.hindu_temple))){nearbyPlace = "hindu_temple";}
+        if(nearbyPlace.equals(getString(R.string.hindu_temple))){
+            nearbyPlace = "hindu_temple";
+        }
+        else{
+            nearbyPlace = nearbyPlace.toLowerCase();
+        }
         googlePlacesUrl.append("&type=" + nearbyPlace.toLowerCase());
-        googlePlacesUrl.append("&keyword=" + nearbyPlace.toLowerCase());
         googlePlacesUrl.append("&sensor=true");
         googlePlacesUrl.append("&key=" + "AIzaSyATuUiZUkEc_UgHuqsBJa1oqaODI-3mLs0");
         Log.d("getUrl", googlePlacesUrl.toString());
