@@ -38,7 +38,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBXPqH3-9V_lo5uAcwKSbyiQlsmCFwoIwI" />
+            android:value="AIzaSyD0ULihWDDf2Dm2dZ76TI4F5aa-Q26A10g" />
 
         <activity
             android:name=".NearMe"
