@@ -44,7 +44,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26+'
     compile 'com.android.support:cardview-v7:26+'
 
-    compile 'com.android.support:appcompat-v7:26+'
     testCompile 'junit:junit:4.12'
 
     // Realtime database
@@ -57,5 +56,6 @@ dependencies {
     //maps
     compile 'com.google.android.gms:play-services-maps:11.4.2'
     compile 'com.google.android.gms:play-services-location:11.4.2'
+
 }
 apply plugin: 'com.google.gms.google-services'

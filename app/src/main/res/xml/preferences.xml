@@ -2,10 +2,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <SwitchPreference
         android:key="@string/translate_pref"
-        android:title="@string/translate_to_chinese"
+        android:title="Dark Theme"
         android:defaultValue="false"
-        android:summaryOn="Back to English"
-        android:summaryOff="翻译成华文"
+        android:summaryOn="Switch to light theme"
+        android:summaryOff="Switch to dark theme"
         />
     <ListPreference
         android:key="@string/route_pref"
