@@ -14,7 +14,6 @@
 
     <string-array name="place_entries">
         <item>@string/no_preference</item>
-        <item>@string/chinese_temple</item>
         <item>@string/church</item>
         <item>@string/hindu_temple</item>
         <item>@string/mosque</item>
@@ -22,10 +21,10 @@
 
     <string-array name="place_values">
     <item>No preference</item>
-    <item>Chinese Temple</item>
     <item>Church</item>
     <item>Hindu Temple</item>
     <item>Mosque</item>
     </string-array>
+
 
 </resources>
