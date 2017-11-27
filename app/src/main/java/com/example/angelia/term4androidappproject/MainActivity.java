@@ -128,7 +128,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         String price = flyer.toString();
 
         Log.i("angelia", price);
-        Log.i("TAG", "onCreate: something");
 
 
     }

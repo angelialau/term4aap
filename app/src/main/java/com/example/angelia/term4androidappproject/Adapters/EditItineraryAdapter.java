@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.angelia.term4androidappproject.EditItineraryActivity;
 import com.example.angelia.term4androidappproject.R;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 public class EditItineraryAdapter extends RecyclerView.Adapter<EditItineraryAdapter.ViewHolder> {
 
     private List<String> locationList;
+    private boolean listChanged;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView location;
@@ -27,6 +29,14 @@ public class EditItineraryAdapter extends RecyclerView.Adapter<EditItineraryAdap
             super(view);
             location = view.findViewById(R.id.textLocation);
             remove = view.findViewById(R.id.buttonRemoveLocation);
+        }
+
+        public String getLocation() {
+            if (location != null) {
+                return location.getText().toString();
+            } else {
+                return null;
+            }
         }
     }
 
@@ -43,14 +53,28 @@ public class EditItineraryAdapter extends RecyclerView.Adapter<EditItineraryAdap
     }
 
     @Override
-    public void onBindViewHolder(EditItineraryAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final EditItineraryAdapter.ViewHolder holder, final int position) {
         String item = locationList.get(position);
 
         holder.location.setText(item);
+        holder.remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                locationList.remove(holder.getLocation());
+                removeData(position);
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
         return locationList.size();
+    }
+
+    public void removeData(int position){
+        this.notifyItemRemoved(position);
+        this.notifyItemRangeChanged(position,locationList.size());
+        this.notifyDataSetChanged();
     }
 }

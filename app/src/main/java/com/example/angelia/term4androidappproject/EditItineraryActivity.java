@@ -3,20 +3,26 @@ package com.example.angelia.term4androidappproject;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.angelia.term4androidappproject.Adapters.EditItineraryAdapter;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class EditItineraryActivity extends AppCompatActivity {
 
     Button buttonDoneItinerary;
     Button buttonAddMoreLocation;
 
+    LinearLayoutManager linearLayoutManager;
     RecyclerView recyclerShowLocations;
+    EditItineraryAdapter editItineraryAdapter;
 
     String dateFromIntent;
     ArrayList<String> locationsFromIntent;
@@ -38,7 +44,11 @@ public class EditItineraryActivity extends AppCompatActivity {
 
         // Setting up recycler view
         if (!dateFromIntent.isEmpty() || !locationsFromIntent.isEmpty()){
-            EditItineraryAdapter editItineraryAdapter = new EditItineraryAdapter(locationsFromIntent);
+            // use a linear layout manager
+            linearLayoutManager = new LinearLayoutManager(this);
+            recyclerShowLocations.setLayoutManager(linearLayoutManager);
+
+            editItineraryAdapter = new EditItineraryAdapter(locationsFromIntent);
             recyclerShowLocations.setAdapter(editItineraryAdapter);
         }
 

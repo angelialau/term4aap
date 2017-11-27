@@ -3,6 +3,7 @@ package com.example.angelia.term4androidappproject;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,7 @@ import me.xdrop.fuzzywuzzy.model.ExtractedResult;
 public class NewItineraryActivity extends AppCompatActivity {
 
     ArrayList<String> locations = new ArrayList<>();
+    ArrayList<String> processedResults;
     String[] hotels = new String[3];
 
     EditText editTextItineraryDate;
@@ -40,6 +42,7 @@ public class NewItineraryActivity extends AppCompatActivity {
 
     ArrayList<String> itinerary;
     String datekey;
+    String hotel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,9 @@ public class NewItineraryActivity extends AppCompatActivity {
         Intent intent = getIntent();
         itinerary = intent.getStringArrayListExtra(MainActivity.LOCATION_KEY);
         datekey = intent.getStringExtra(MainActivity.DATE_KEY);
+        if (itinerary == null || datekey == null) {
+            itinerary = new ArrayList<String>();
+        }
 
         hotels[0] = "Marina Bay Sands";
         hotels[1] = "One Fullerton";
@@ -70,13 +76,6 @@ public class NewItineraryActivity extends AppCompatActivity {
         buttonContinue = findViewById(R.id.buttonContinue);
         buttonAddLocation = findViewById(R.id.buttonAddLocation);
 
-        //Checking if arraylist for location and date is empty
-        if(itinerary == null || datekey == null){
-            itinerary.add(spinnerItineraryHotel.toString());
-            datekey = editTextItineraryDate.toString();
-        }
-
-
         // Adding the Spinner Adapter to our hotel spinner
         CustomSpinnerAdapter hotelSpinnerAdapter = new CustomSpinnerAdapter(this,
                                                                         R.layout.activity_new_itinerary,
@@ -86,6 +85,18 @@ public class NewItineraryActivity extends AppCompatActivity {
                                                                         hotels[0]);
 
         spinnerItineraryHotel.setAdapter(hotelSpinnerAdapter);
+        spinnerItineraryHotel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                hotel = hotels[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+
+        });
+
 
         // Getting that autocorrect
         autoCompleteItinerarySearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -97,7 +108,7 @@ public class NewItineraryActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 List<ExtractedResult> results = FuzzySearch.extractSorted(newText, locations, 5);
-                ArrayList<String> processedResults = new ArrayList<>();
+                processedResults = new ArrayList<>();
                 for(ExtractedResult r : results) {
                     processedResults.add(r.getString());
                 }
@@ -118,7 +129,7 @@ public class NewItineraryActivity extends AppCompatActivity {
         listSearchResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                autoCompleteItinerarySearch.setQuery(locations.get(position),false);
+                autoCompleteItinerarySearch.setQuery(processedResults.get(position),false);
             }
         });
 
@@ -126,22 +137,30 @@ public class NewItineraryActivity extends AppCompatActivity {
         buttonContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),EditItineraryActivity.class);
-                intent.putExtra(MainActivity.LOCATION_KEY, locations);
-                intent.putExtra(MainActivity.DATE_KEY,datekey);
-                startActivity(intent);
+                if (editTextItineraryDate.getText().toString().isEmpty()) {
+                    Toast.makeText(v.getContext(),"Date cannot be empty",Toast.LENGTH_SHORT).show();
+                } else if (hotel.isEmpty()){
+                    Toast.makeText(v.getContext(), "Hotel cannot be empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    datekey = editTextItineraryDate.getText().toString();
+                    itinerary.add(hotel);
+                    Intent intent = new Intent(v.getContext(),EditItineraryActivity.class);
+                    intent.putExtra(MainActivity.LOCATION_KEY, itinerary);
+                    intent.putExtra(MainActivity.DATE_KEY,datekey);
+                    startActivity(intent);
+                }
             }
         });
 
         buttonAddLocation.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { 
-                autoCompleteItinerarySearch.setQuery("",false);
-                String toadd = autoCompleteItinerarySearch.toString();
-                if(!locations.contains(toadd)){
-                    locations.add(toadd);
+            public void onClick(View v) {
+                String toadd = autoCompleteItinerarySearch.getQuery().toString();
+                if(!itinerary.contains(toadd)){
+                    itinerary.add(toadd);
                 }
                 Toast.makeText(v.getContext(),"Location Added",Toast.LENGTH_SHORT).show();
+                autoCompleteItinerarySearch.setQuery("",false);
             }
         });
     }
