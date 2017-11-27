@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Term4AndroidAppProject.iml" filepath="$PROJECT_DIR$/Term4AndroidAppProject.iml" />
       <module fileurl="file://C:\Users\NPStudent\Desktop\Term 4\50.001 Intro to Info Sys &amp; Program\1D-android\term4aap\Term4AndroidAppProject.iml" filepath="C:\Users\NPStudent\Desktop\Term 4\50.001 Intro to Info Sys &amp; Program\1D-android\term4aap\Term4AndroidAppProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/term4aap.iml" filepath="$PROJECT_DIR$/term4aap.iml" />
