@@ -3,6 +3,8 @@ package com.example.angelia.term4androidappproject;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.angelia.term4androidappproject.Utils.DataParser;
+import com.example.angelia.term4androidappproject.Utils.DownloadUrl;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;

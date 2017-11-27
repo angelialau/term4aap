@@ -1,4 +1,4 @@
-package com.example.angelia.term4androidappproject;
+package com.example.angelia.term4androidappproject.Adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.angelia.term4androidappproject.R;
+import com.example.angelia.term4androidappproject.Models.ViewItineraryItem;
 
 import java.util.List;
 
