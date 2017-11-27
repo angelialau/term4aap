@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.angelia.term4androidappproject.Adapters.CustomSpinnerAdapter;
 
@@ -95,12 +97,27 @@ public class NewItineraryActivity extends AppCompatActivity {
             }
         });
 
+        listSearchResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                autoCompleteItinerarySearch.setQuery(locations.get(position),false);
+            }
+        });
+
 
         buttonContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),EditItineraryActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        buttonAddLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autoCompleteItinerarySearch.setQuery("",false);
+                Toast.makeText(v.getContext(),"Location Added",Toast.LENGTH_SHORT).show();
             }
         });
     }
