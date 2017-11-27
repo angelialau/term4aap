@@ -1,4 +1,4 @@
-package com.example.angelia.term4androidappproject;
+package com.example.angelia.term4androidappproject.Models;
 
 /**
  * Created by NPStudent on 22/11/2017.
@@ -8,7 +8,7 @@ public class PreferenceItem {
     private String placePref;
     private String routePref;
 
-    PreferenceItem(){
+    public PreferenceItem(){
         this.placePref = null;
         this.routePref = null;
     }
