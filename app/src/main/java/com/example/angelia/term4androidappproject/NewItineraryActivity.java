@@ -46,9 +46,12 @@ public class NewItineraryActivity extends AppCompatActivity {
         hotels[1] = "One Fullerton";
         hotels[2] = "Raffles Hotel";
 
-        locations.add("Rayson");
-        locations.add("Kim");
-        locations.add("Angelia");
+        locations.add("Marina Bay Sands");
+        locations.add("Singapore  Flyer");
+        locations.add("Vivo  City");
+        locations.add("Resorts  World  Sentosa");
+        locations.add("Buddha  Tooth Relic  Temple");
+        locations.add("Zoo");
 
         // Linking up all my views
         editTextItineraryDate = findViewById(R.id.editTextItineraryDate);
