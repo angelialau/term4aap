@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.angelia.term4androidappproject.Adapters.CustomSpinnerAdapter;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,10 +38,17 @@ public class NewItineraryActivity extends AppCompatActivity {
 
     ArrayAdapter<String> arrayAdapter;
 
+    ArrayList<String> itinerary;
+    String datekey;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_itinerary);
+
+        Intent intent = getIntent();
+        itinerary = intent.getStringArrayListExtra(MainActivity.LOCATION_KEY);
+        datekey = intent.getStringExtra(MainActivity.DATE_KEY);
 
         hotels[0] = "Marina Bay Sands";
         hotels[1] = "One Fullerton";
@@ -61,6 +69,13 @@ public class NewItineraryActivity extends AppCompatActivity {
 
         buttonContinue = findViewById(R.id.buttonContinue);
         buttonAddLocation = findViewById(R.id.buttonAddLocation);
+
+        //Checking if arraylist for location and date is empty
+        if(itinerary == null || datekey == null){
+            itinerary.add(spinnerItineraryHotel.toString());
+            datekey = editTextItineraryDate.toString();
+        }
+
 
         // Adding the Spinner Adapter to our hotel spinner
         CustomSpinnerAdapter hotelSpinnerAdapter = new CustomSpinnerAdapter(this,
@@ -112,6 +127,8 @@ public class NewItineraryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),EditItineraryActivity.class);
+                intent.putExtra(MainActivity.LOCATION_KEY, locations);
+                intent.putExtra(MainActivity.DATE_KEY,datekey);
                 startActivity(intent);
             }
         });
@@ -120,6 +137,10 @@ public class NewItineraryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) { 
                 autoCompleteItinerarySearch.setQuery("",false);
+                String toadd = autoCompleteItinerarySearch.toString();
+                if(!locations.contains(toadd)){
+                    locations.add(toadd);
+                }
                 Toast.makeText(v.getContext(),"Location Added",Toast.LENGTH_SHORT).show();
             }
         });
