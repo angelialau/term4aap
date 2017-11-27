@@ -115,7 +115,7 @@ public class NewItineraryActivity extends AppCompatActivity {
 
         buttonAddLocation.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { 
                 autoCompleteItinerarySearch.setQuery("",false);
                 Toast.makeText(v.getContext(),"Location Added",Toast.LENGTH_SHORT).show();
             }
