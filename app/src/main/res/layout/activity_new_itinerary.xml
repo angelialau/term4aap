@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.angelia.term4androidappproject.NewItineraryActivity">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/homescreenbackground" />
+
+    <GridLayout
+        android:id="@+id/gridLayoutNewItinerary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:layout_margin="@dimen/page_border_margin">
+
+        <TextView
+            android:text="Date"
+            android:layout_column="0"
+            android:layout_row="0"/>
+
+        <TextView
+            android:text="Hotel"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:text="Search"
+            android:layout_column="0"
+            android:layout_row="2"/>
+
+        <EditText
+            android:id="@+id/editTextItineraryDate"
+            android:inputType="date"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Spinner
+            android:id="@+id/spinnerItineraryHotel"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/white"
+            android:background="@android:color/white"
+            android:popupBackground="@android:color/white"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteItinerarySearch"
+            android:inputType="text"
+            android:layout_column="1"
+            android:layout_row="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </GridLayout>
+
+    <Button
+        android:id="@+id/buttonContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gridLayoutNewItinerary"
+        android:layout_toLeftOf="@id/buttonAddLocation"
+        android:text="Continue"/>
+
+    <Button
+        android:id="@+id/buttonAddLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gridLayoutNewItinerary"
+        android:layout_alignRight="@id/gridLayoutNewItinerary"
+        android:text="Add" />
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/mapPreview"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/buttonAddLocation"
+        android:layout_margin="@dimen/page_border_margin"
+        tools:context="com.example.angelia.term4androidappproject.NewItineraryActivity" />
+
+</RelativeLayout>

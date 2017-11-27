@@ -15,7 +15,6 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -25,6 +24,7 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+    PreferenceItem preferences = new PreferenceItem();
     SharedPreferences sharedPref;
 
     private int RC_SIGN_IN = 1010;
@@ -49,29 +49,17 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         buttonStartNewItinerary = findViewById(R.id.start_itinerary_button);
 
         // Setup OnClick listeners
-        buttonStartNewItinerary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO wire up to the right activity
-                Intent intent = new Intent();
-            }
-        });
+        buttonStartNewItinerary.setOnClickListener(buttonStartNewItineraryOnClickListener);
 
         buttonMyItinerary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),ItineraryActivity.class);
+                Intent intent = new Intent(v.getContext(),ViewItinerariesActivity.class);
                 startActivity(intent);
             }
         });
 
-        buttonFindNearMe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO wire up to the right activity
-                Intent intent = new Intent();
-            }
-        });
+        buttonFindNearMe.setOnClickListener(buttonFindNearMeOnClickListener);
 
         // Setting up objects related to Authentication
         firebaseAuth = FirebaseAuth.getInstance();
@@ -109,9 +97,28 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         String inputRoutePref = sharedPref.getString(getString(R.string.route_pref),"default"); //default " ", else, best_route, less_walking, fewer_transfers
         Log.i("Angelia", "oncreate route preference: " + inputRoutePref);
 
-        String inputPlacePref = sharedPref.getString(getString(R.string.place_pref), "no preference");
+        final String inputPlacePref = sharedPref.getString(getString(R.string.place_pref), "no preference");
         Log.i("Angelia", "oncreate place preference: " + inputPlacePref);
+        preferences.setPlacePref(inputPlacePref);
     }
+
+    View.OnClickListener buttonFindNearMeOnClickListener =  new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(v.getContext(),NearMeActivity.class);
+            intent.putExtra("PlacePref",preferences.getPlacePref());
+            startActivity(intent);
+        }};
+
+    View.OnClickListener buttonStartNewItineraryOnClickListener =  new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(v.getContext(),NewItineraryActivity.class);
+            intent.putExtra("PlacePref",preferences.getPlacePref());
+            startActivity(intent);
+        }};
 
     @Override
     protected void onResume() {
@@ -196,6 +203,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         if (key.equals(getString(R.string.place_pref))){
             String inputPlacePref = sharedPreferences.getString(key, "no preference");
             Log.i("Angelia", "inapp route preference: " + inputPlacePref);
+            preferences.setPlacePref(inputPlacePref);
             //TODO put into gmaps query
         }
     }
