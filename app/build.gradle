@@ -57,5 +57,8 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:11.4.2'
     compile 'com.google.android.gms:play-services-location:11.4.2'
 
+    //gson
+    compile 'com.google.code.gson:gson:2.8.2'
+
 }
 apply plugin: 'com.google.gms.google-services'

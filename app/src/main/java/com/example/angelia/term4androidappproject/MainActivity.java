@@ -11,8 +11,19 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -106,6 +117,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 }
             }
         };
+
+        HashMap<String, Object> map = hashMapify(R.raw.foot);
+        LinkedTreeMap foot = (LinkedTreeMap) map.get("foot");
+        LinkedTreeMap marina = (LinkedTreeMap) foot.get("Marina Bay Sands");
+        LinkedTreeMap flyer = (LinkedTreeMap) marina.get("Singapore Flyer");
+        String price = flyer.toString();
+
+        Log.i("angelia", price);
+        Log.i("TAG", "onCreate: something");
 
 
     }
@@ -214,5 +234,36 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             //TODO put into gmaps query
         }
     }
+
+    public class JsonData{
+        String origin;
+        String destination;
+        String price;
+        String time;
+
+    }
+
+    public HashMap<String, Object> hashMapify(int resource){
+        String line;
+        String output="";
+
+        InputStream inputStream = getResources().openRawResource(resource);
+        try{
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            while ((line=reader.readLine())!=null){
+                output = output+line;
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        Gson gson = new Gson();
+        HashMap<String, Object> map = gson.fromJson(output, new TypeToken<HashMap<String, Object>>(){}.getType());
+
+        return map;
+
+
+    }
+
 
 }
