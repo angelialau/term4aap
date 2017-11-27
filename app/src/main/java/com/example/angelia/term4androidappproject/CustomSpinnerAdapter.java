@@ -41,9 +41,10 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String>  {
 
     public void setDefaultText(String setText, String defaultText, String defaults ) {
         this.firstElement = objects[0];
-        if (!setText.equals(defaultText)) {
-            objects[0] = defaultText;
-            Log.i("kim","if loop " + defaultText);
+        Log.i("kim", String.valueOf(setText.toLowerCase().equals(defaultText.toLowerCase())));
+        if (!setText.toLowerCase().equals(defaultText.toLowerCase())) {
+            objects[0] = setText;
+            Log.i("kim","if loop " + setText);
         }else{
             Log.i("kim","elseloop " + defaults);
             objects[0] = defaults;
