@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private FirebaseAuth.AuthStateListener authStateListener;
 
     public static String userEmail = null;
+    public static String LOCATION_KEY = "locations_list";
+    public static String DATE_KEY = "date_key";
 
     public Button buttonMyItinerary;
     public Button buttonFindNearMe;
