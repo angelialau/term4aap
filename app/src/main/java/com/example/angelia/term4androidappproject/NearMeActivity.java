@@ -204,7 +204,7 @@ public class NearMeActivity extends FragmentActivity implements OnMapReadyCallba
         }
         googlePlacesUrl.append("&type=" + nearbyPlace.toLowerCase());
         googlePlacesUrl.append("&sensor=true");
-        googlePlacesUrl.append("&key=" + "AIzaSyD0ULihWDDf2Dm2dZ76TI4F5aa-Q26A10g");
+        googlePlacesUrl.append("&key=" + "AIzaSyATuUiZUkEc_UgHuqsBJa1oqaODI-3mLs0" );
         Log.d("getUrl", googlePlacesUrl.toString());
         return (googlePlacesUrl.toString());
     }

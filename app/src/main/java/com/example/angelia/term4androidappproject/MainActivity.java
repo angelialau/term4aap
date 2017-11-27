@@ -41,6 +41,26 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Setting up Shared Preferences
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPref.registerOnSharedPreferenceChangeListener(this);
+
+        boolean useDarkTheme = sharedPref.getBoolean(getString(R.string.translate_pref), false); //translate_pref actually pref to change to dark theme
+        Log.i("Angelia", "oncreate dark theme preference: " + useDarkTheme);
+
+        String inputRoutePref = sharedPref.getString(getString(R.string.route_pref),"default"); //default " ", else, best_route, less_walking, fewer_transfers
+        Log.i("Angelia", "oncreate route preference: " + inputRoutePref);
+
+        final String inputPlacePref = sharedPref.getString(getString(R.string.place_pref), "no preference");
+        Log.i("Angelia", "oncreate place preference: " + inputPlacePref);
+        preferences.setPlacePref(inputPlacePref);
+
+        if(useDarkTheme){
+            setTheme(R.style.AppTheme_Dark);
+        }
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -88,19 +108,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
         };
 
-        // Setting up Shared Preferences
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        sharedPref.registerOnSharedPreferenceChangeListener(this);
 
-        boolean inputTranslatePref = sharedPref.getBoolean(getString(R.string.translate_pref), false);
-        Log.i("Angelia", "oncreate translate preference: " + inputTranslatePref);
-
-        String inputRoutePref = sharedPref.getString(getString(R.string.route_pref),"default"); //default " ", else, best_route, less_walking, fewer_transfers
-        Log.i("Angelia", "oncreate route preference: " + inputRoutePref);
-
-        final String inputPlacePref = sharedPref.getString(getString(R.string.place_pref), "no preference");
-        Log.i("Angelia", "oncreate place preference: " + inputPlacePref);
-        preferences.setPlacePref(inputPlacePref);
     }
 
     View.OnClickListener buttonFindNearMeOnClickListener =  new View.OnClickListener(){
@@ -189,10 +197,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         if (key.equals(getString(R.string.translate_pref))){
             //same code as above
-            boolean inputTranslatePref = sharedPreferences.getBoolean(key,false);
-            Log.i("Angelia", "in app translate preference: " + inputTranslatePref);
+            boolean useDarkTheme = sharedPref.getBoolean(getString(R.string.translate_pref), false); //translate_pref actually pref to change to dark theme
+            Log.i("Angelia", "inapp dark theme preference: " + useDarkTheme);
             //REMINDER - write code for what u want to do when this pref is changed
-            //TODO translate strings.xml to chinese
         }
 
         if (key.equals(getString(R.string.route_pref))){
@@ -208,4 +215,5 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             //TODO put into gmaps query
         }
     }
+
 }
