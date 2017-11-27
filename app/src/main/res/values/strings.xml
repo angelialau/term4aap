@@ -29,6 +29,7 @@
     <string name="route_pref">preferred route</string>
     <string name="translate_pref">translate pref</string>
     <string name="place_pref"> preferred place of worship</string>
+    <string name="least_transfers">least</string>
 
 
 </resources>

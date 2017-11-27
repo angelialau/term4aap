@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">新加坡的礼拜场所</string>
+    <string name="find_near_me">在我附近</string>
+    <string name="my_itinerary">我的行程</string>
+    <string name="start_an_itinerary">开始新行程</string>
+    <string name="settings">设置</string>
+    <string name="about_us">关于我们</string>
+    <string name="sign_out">登出</string>
+    <string name="routes">路线</string>
+    <string name="best_route">最佳路线</string>
+</resources>
