@@ -5,15 +5,14 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class ItineraryActivity extends AppCompatActivity {
+public class ViewItinerariesActivity extends AppCompatActivity {
 
     public RecyclerView recyclerView;
-    public RecyclerViewAdapter recyclerViewAdapter;
+    public ViewItineraryAdapter viewItineraryAdapter;
     public LinearLayoutManager linearLayoutManager;
 
     @Override
@@ -27,20 +26,20 @@ public class ItineraryActivity extends AppCompatActivity {
         List<String> list = Arrays.asList("somewhere");
         Date date = new Date();
 
-        ItineraryItem a = new ItineraryItem(date, list,"temple");
-        ItineraryItem b = new ItineraryItem(date, list, "church");
-        ItineraryItem c = new ItineraryItem(date, list, "mosque");
-        ItineraryItem d = new ItineraryItem(date, list, "temple");
+        ViewItineraryItem a = new ViewItineraryItem(date, list,"temple");
+        ViewItineraryItem b = new ViewItineraryItem(date, list, "church");
+        ViewItineraryItem c = new ViewItineraryItem(date, list, "mosque");
+        ViewItineraryItem d = new ViewItineraryItem(date, list, "temple");
 
-        List<ItineraryItem> itineraryItems = Arrays.asList(a,b,c,d);
+        List<ViewItineraryItem> viewItineraryItems = Arrays.asList(a,b,c,d);
 
-        recyclerViewAdapter = new RecyclerViewAdapter(itineraryItems);
+        viewItineraryAdapter = new ViewItineraryAdapter(viewItineraryItems);
 
         // use a linear layout manager
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         // specify an adapter
-        recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerView.setAdapter(viewItineraryAdapter);
     }
 }

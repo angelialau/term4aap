@@ -12,4 +12,6 @@
     <dimen name="temple_padding_top">60dp</dimen>
     <dimen name="temple_padding_bottom">0dp</dimen>
 
+    <dimen name="page_border_margin">16dp</dimen>
+
 </resources>

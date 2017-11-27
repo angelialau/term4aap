@@ -8,12 +8,12 @@ import java.util.List;
  * Created by arroyo on 21/11/17.
  */
 
-public class ItineraryItem {
+public class ViewItineraryItem {
     private Date date;
     private List<String> places;   // List of all the places to be visited on that date
     private String type;                // Type of place of worship
 
-    public ItineraryItem(Date date, List<String> places, String type) {
+    public ViewItineraryItem(Date date, List<String> places, String type) {
         this.date = date;
         this.places = places;
         this.type = type;

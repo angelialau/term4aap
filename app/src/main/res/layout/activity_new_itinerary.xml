@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.angelia.term4androidappproject.newItinerary">
+    tools:context="com.example.angelia.term4androidappproject.NewItineraryActivity">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -14,66 +14,81 @@
         android:scaleType="centerCrop"
         android:src="@drawable/homescreenbackground" />
 
-    <ImageView
-        android:id="@+id/imageView4"
+    <GridLayout
+        android:id="@+id/gridLayoutNewItinerary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/homepage_name"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@drawable/logo" />
+        android:columnCount="2"
+        android:layout_margin="@dimen/page_border_margin">
 
-    <ImageView
-        android:id="@+id/homepage_name3"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        <TextView
+            android:text="Date"
+            android:layout_column="0"
+            android:layout_row="0"/>
 
-    <EditText
-        android:id="@+id/dateEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/homepage_name3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="15dp"
-        android:background="@android:color/white"
-        android:ems="10"
-        android:hint="Enter the date of visit"
-        android:inputType="date" />
+        <TextView
+            android:text="Hotel"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:layout_gravity="center_vertical"/>
 
-    <AutoCompleteTextView
-        android:id="@+id/locationEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/dateEditText"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@android:color/white"
-        android:popupBackground="@android:color/white" />
+        <TextView
+            android:text="Search"
+            android:layout_column="0"
+            android:layout_row="2"/>
+
+        <EditText
+            android:id="@+id/editTextItineraryDate"
+            android:inputType="date"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Spinner
+            android:id="@+id/spinnerItineraryHotel"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/white"
+            android:background="@android:color/white"
+            android:popupBackground="@android:color/white"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteItinerarySearch"
+            android:inputType="text"
+            android:layout_column="1"
+            android:layout_row="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </GridLayout>
 
     <Button
-        android:id="@+id/nextButton"
+        android:id="@+id/buttonContinue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/locationEditText"
-        android:layout_alignRight="@+id/locationEditText"
-        android:layout_below="@+id/preferenceSpinner"
-        android:layout_marginTop="68dp"
-        android:text="Next" />
+        android:layout_below="@id/gridLayoutNewItinerary"
+        android:layout_toLeftOf="@id/buttonAddLocation"
+        android:text="Continue"/>
 
-    <Spinner
-        android:id="@+id/preferenceSpinner"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/buttonAddLocation"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/locationEditText"
-        android:layout_marginTop="56dp"
-        android:background="@android:color/white" />
+        android:layout_below="@+id/gridLayoutNewItinerary"
+        android:layout_alignRight="@id/gridLayoutNewItinerary"
+        android:text="Add" />
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/mapPreview"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/buttonAddLocation"
+        android:layout_margin="@dimen/page_border_margin"
+        tools:context="com.example.angelia.term4androidappproject.NewItineraryActivity" />
+
 </RelativeLayout>

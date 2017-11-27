@@ -54,7 +54,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/homepage_name2"
         android:layout_marginTop="62dp"
-        tools:context="com.example.angelia.term4androidappproject.NearMe" />
+        tools:context="com.example.angelia.term4androidappproject.NearMeActivity" />
 
     <Button
         android:id="@+id/goButton"

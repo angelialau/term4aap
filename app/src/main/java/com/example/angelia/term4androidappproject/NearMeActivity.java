@@ -1,7 +1,5 @@
 package com.example.angelia.term4androidappproject;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -33,7 +31,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class NearMe extends FragmentActivity implements OnMapReadyCallback,
+public class NearMeActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
@@ -163,7 +161,7 @@ public class NearMe extends FragmentActivity implements OnMapReadyCallback,
                 Log.d("onClick", url);
                 GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
                 getNearbyPlacesData.execute(DataTransfer);
-                Toast.makeText(NearMe.this,"Nearby "+ choice, Toast.LENGTH_LONG).show();
+                Toast.makeText(NearMeActivity.this,"Nearby "+ choice, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -237,7 +235,7 @@ public class NearMe extends FragmentActivity implements OnMapReadyCallback,
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
-        Toast.makeText(NearMe.this,"Your Current Location", Toast.LENGTH_LONG).show();
+        Toast.makeText(NearMeActivity.this,"Your Current Location", Toast.LENGTH_LONG).show();
 
         Log.d("onLocationChanged", String.format("latitude:%.3f longitude:%.3f",latitude,longitude));
 

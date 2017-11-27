@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".ItineraryActivity" />
+        <activity android:name=".ViewItinerariesActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -41,9 +41,10 @@
             android:value="AIzaSyD0ULihWDDf2Dm2dZ76TI4F5aa-Q26A10g" />
 
         <activity
-            android:name=".NearMe"
+            android:name=".NearMeActivity"
             android:label="@string/title_activity_find_near_me" />
-        <activity android:name=".newItinerary"></activity>
+        <activity android:name=".NewItineraryActivity" />
+        <activity android:name=".EditItineraryActivity"></activity>
     </application>
 
 </manifest>

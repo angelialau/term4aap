@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         buttonMyItinerary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),ItineraryActivity.class);
+                Intent intent = new Intent(v.getContext(),ViewItinerariesActivity.class);
                 startActivity(intent);
             }
         });
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(),NearMe.class);
+            Intent intent = new Intent(v.getContext(),NearMeActivity.class);
             intent.putExtra("PlacePref",preferences.getPlacePref());
             startActivity(intent);
         }};
@@ -115,10 +115,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(),newItinerary.class);
+            Intent intent = new Intent(v.getContext(),NewItineraryActivity.class);
             intent.putExtra("PlacePref",preferences.getPlacePref());
             startActivity(intent);
         }};
+
     @Override
     protected void onResume() {
         super.onResume();

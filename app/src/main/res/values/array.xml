@@ -28,4 +28,8 @@
     <item>Mosque</item>
     </string-array>
 
+    <string-array name="locations">
+        <item>Marina Bay Sands</item>
+    </string-array>
+
 </resources>

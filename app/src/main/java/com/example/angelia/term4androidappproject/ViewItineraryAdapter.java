@@ -13,9 +13,9 @@ import java.util.List;
  * Created by arroyo on 21/11/17.
  */
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class ViewItineraryAdapter extends RecyclerView.Adapter<ViewItineraryAdapter.ViewHolder> {
 
-    private List<ItineraryItem> itineraryItemList;
+    private List<ViewItineraryItem> viewItineraryItemList;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView date, place;
@@ -29,21 +29,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    public RecyclerViewAdapter(List<ItineraryItem> itineraryItemList) {
-        this.itineraryItemList = itineraryItemList;
+    public ViewItineraryAdapter(List<ViewItineraryItem> viewItineraryItemList) {
+        this.viewItineraryItemList = viewItineraryItemList;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_itinerary, parent, false);
+                .inflate(R.layout.item_view_itinerary, parent, false);
 
         return new ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ItineraryItem item = itineraryItemList.get(position);
+        ViewItineraryItem item = viewItineraryItemList.get(position);
         android.text.format.DateFormat df = new android.text.format.DateFormat();
 
         holder.date.setText(df.format("dd MMM yyyy", item.getDate()));
@@ -65,6 +65,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return itineraryItemList.size();
+        return viewItineraryItemList.size();
     }
 }
