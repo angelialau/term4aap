@@ -1,4 +1,4 @@
-package com.example.angelia.term4androidappproject;
+package com.example.angelia.term4androidappproject.Adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.angelia.term4androidappproject.R;
 
 public class CustomSpinnerAdapter extends ArrayAdapter<String>  {
 

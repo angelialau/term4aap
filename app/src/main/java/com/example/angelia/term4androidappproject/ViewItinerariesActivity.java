@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.angelia.term4androidappproject.Adapters.ViewItineraryAdapter;
+import com.example.angelia.term4androidappproject.Models.ViewItineraryItem;
+
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.angelia.term4androidappproject;
+package com.example.angelia.term4androidappproject.Models;
 
 import java.util.ArrayList;
 import java.util.Date;
