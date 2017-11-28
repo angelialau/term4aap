@@ -12,6 +12,7 @@ import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class CalculateItineraryActivity extends AppCompatActivity {
 
@@ -30,7 +31,7 @@ public class CalculateItineraryActivity extends AppCompatActivity {
         HashMap<String, LinkedTreeMap> publicmap = JsonProcessing.hashMapify(R.raw.public_transport, this);
         HashMap<String, LinkedTreeMap> taximap = JsonProcessing.hashMapify(R.raw.taxi,this);
 
-        HashMap<String,String> visited = new HashMap<>();
+        LinkedHashMap<String,String> visited = new LinkedHashMap<>();
         ItineraryCalculator calculator = new ItineraryCalculator(footmap,publicmap,taximap);
         calculator.bruteForceCalculate(locations,visited,0,0,0,"Marina Bay Sands");
 

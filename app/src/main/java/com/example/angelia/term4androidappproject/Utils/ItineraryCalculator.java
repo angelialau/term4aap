@@ -7,6 +7,7 @@ import com.google.gson.internal.LinkedTreeMap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * Created by arroyo on 28/11/17.
@@ -39,17 +40,29 @@ public class ItineraryCalculator {
         this.taxiHashMap = taxiHashMap;
     }
 
-    public void bruteForceCalculate(ArrayList<String> wantToVisit, HashMap<String,String> visited,
+    public void bruteForceCalculate(ArrayList<String> wantToVisit, LinkedHashMap<String,String> visited,
                                                       double cost, double time, int count, String current){
 
         if (wantToVisit.isEmpty()) {
-            if (cost > 100000) {
-                return;
+            if (count != -1) {
+                wantToVisit.add(start);
+                fromLocationByFoot = this.footHashMap.get(current);
+                fromLocationByPublic = this.publicTransportHashMap.get(current);
+                fromLocationByTaxi = this.taxiHashMap.get(current);
+
+                bruteForceHelper(wantToVisit, visited, fromLocationByFoot, "foot", cost, time, -2);
+                bruteForceHelper(wantToVisit, visited, fromLocationByPublic, "public transport", cost, time, -2);
+                bruteForceHelper(wantToVisit, visited, fromLocationByTaxi, "taxi", cost, time, -2);
             }
-            else if (this.bestTime > time) {
-                this.bestTime = time;
-                this.bestItinerary = visited;
-                return;
+            else {
+                if (cost > 20) {
+                    return;
+                }
+                else if (this.bestTime > time) {
+                    this.bestTime = time;
+                    this.bestItinerary = visited;
+                    return;
+                }
             }
         }
 
@@ -65,7 +78,7 @@ public class ItineraryCalculator {
         else {
             fromLocationByFoot = this.footHashMap.get(current);
             fromLocationByPublic = this.publicTransportHashMap.get(current);
-            fromLocationByTaxi = this.publicTransportHashMap.get(current);
+            fromLocationByTaxi = this.taxiHashMap.get(current);
         }
 
         bruteForceHelper(wantToVisit, visited, fromLocationByFoot, "foot", cost, time, count);
@@ -73,17 +86,17 @@ public class ItineraryCalculator {
         bruteForceHelper(wantToVisit, visited, fromLocationByTaxi, "taxi", cost, time, count);
     }
 
-    public void bruteForceHelper(ArrayList<String> wantToVisit, HashMap<String,String> visited,
+    public void bruteForceHelper(ArrayList<String> wantToVisit, LinkedHashMap<String,String> visited,
                                  LinkedTreeMap data, String type, double cost, double time, int count) {
         double temp_cost;
         double temp_time;
 
-        HashMap<String,String> temp_visited;
+        LinkedHashMap<String,String> temp_visited;
         ArrayList<String> temp_wantToVisit;
         LinkedTreeMap price_time;
 
         for (String place : wantToVisit) {
-            temp_visited = (HashMap) visited.clone();
+            temp_visited = (LinkedHashMap) visited.clone();
             temp_wantToVisit = (ArrayList) wantToVisit.clone();
 
             price_time = (LinkedTreeMap) data.get(place);
