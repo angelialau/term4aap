@@ -44,13 +44,13 @@ public class ItineraryCalculator {
                                                       double cost, double time, int count, String current){
 
         if (wantToVisit.isEmpty()) {
-            if (count != -1) {
+            if (count >= 0) {
                 wantToVisit.add(start);
                 fromLocationByFoot = this.footHashMap.get(current);
                 fromLocationByPublic = this.publicTransportHashMap.get(current);
                 fromLocationByTaxi = this.taxiHashMap.get(current);
 
-                count = -2;
+                count = -10;
             }
             else {
                 if (cost > 21000000) {
@@ -59,13 +59,14 @@ public class ItineraryCalculator {
                 else if (this.bestTime > time) {
                     this.bestTime = time;
                     this.bestItinerary = visited;
+                    Log.i(TAG, "bruteForceCalculate: " + time);
+                    Log.i(TAG, "bruteForceCalculate: " + visited.toString());
                     return;
                 }
             }
         }
 
         else if (count == 0) {
-            //visited.put(start, "NA");
             wantToVisit.remove(start);
 
             fromLocationByFoot = this.footHashMap.get(start);
@@ -101,7 +102,7 @@ public class ItineraryCalculator {
             Log.i(TAG, "bruteForceHelper: " + place);
             Log.i(TAG, "bruteForceHelper: " + data.toString());
             Log.i(TAG, "bruteForceHelper: " + Arrays.toString(wantToVisit.toArray()));
-            //Log.i(TAG, "bruteForceHelper: " + price_time.toString());
+            Log.i(TAG, "bruteForceHelper: " + price_time.toString());
 
             if (price_time != null) {
                 temp_visited.put(place, type);
@@ -116,11 +117,11 @@ public class ItineraryCalculator {
     }
 
     public HashMap<String, String> getBestItinerary() {
-        return bestItinerary;
+        return this.bestItinerary;
     }
 
     public double getBestTime() {
-        return bestTime;
+        return this.bestTime;
     }
 }
 
