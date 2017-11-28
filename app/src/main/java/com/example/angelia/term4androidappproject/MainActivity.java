@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.angelia.term4androidappproject.Models.PreferenceItem;
+import com.example.angelia.term4androidappproject.Utils.JsonProcessing;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -121,15 +122,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
         };
 
-        HashMap<String, Object> map = hashMapify(R.raw.foot);
-        LinkedTreeMap foot = (LinkedTreeMap) map.get("foot");
-        LinkedTreeMap marina = (LinkedTreeMap) foot.get("Marina Bay Sands");
-        LinkedTreeMap flyer = (LinkedTreeMap) marina.get("Singapore Flyer");
-        String price = flyer.toString();
-
-        Log.i("angelia", price);
-
-
     }
 
     View.OnClickListener buttonFindNearMeOnClickListener =  new View.OnClickListener(){
@@ -236,36 +228,5 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             //TODO put into gmaps query
         }
     }
-
-    public class JsonData{
-        String origin;
-        String destination;
-        String price;
-        String time;
-
-    }
-
-    public HashMap<String, Object> hashMapify(int resource){
-        String line;
-        String output="";
-
-        InputStream inputStream = getResources().openRawResource(resource);
-        try{
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-            while ((line=reader.readLine())!=null){
-                output = output+line;
-            }
-
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        Gson gson = new Gson();
-        HashMap<String, Object> map = gson.fromJson(output, new TypeToken<HashMap<String, Object>>(){}.getType());
-
-        return map;
-
-
-    }
-
 
 }

@@ -49,22 +49,15 @@ public class NewItineraryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_itinerary);
 
-        Intent intent = getIntent();
-        itinerary = intent.getStringArrayListExtra(MainActivity.LOCATION_KEY);
-        datekey = intent.getStringExtra(MainActivity.DATE_KEY);
-        if (itinerary == null || datekey == null) {
-            itinerary = new ArrayList<String>();
-        }
-
         hotels[0] = "Marina Bay Sands";
-        hotels[1] = "One Fullerton";
-        hotels[2] = "Raffles Hotel";
+
+        hotel = hotels[0];
 
         locations.add("Marina Bay Sands");
-        locations.add("Singapore  Flyer");
-        locations.add("Vivo  City");
-        locations.add("Resorts  World  Sentosa");
-        locations.add("Buddha  Tooth Relic  Temple");
+        locations.add("Singapore Flyer");
+        locations.add("Vivo City");
+        locations.add("Resorts World Sentosa");
+        locations.add("Buddha Tooth Relic Temple");
         locations.add("Zoo");
 
         // Linking up all my views
@@ -80,7 +73,7 @@ public class NewItineraryActivity extends AppCompatActivity {
         CustomSpinnerAdapter hotelSpinnerAdapter = new CustomSpinnerAdapter(this,
                                                                         R.layout.activity_new_itinerary,
                                                                         hotels,
-                                                                        "Choose a hotel",
+                                                                        hotels[0],
                                                                         hotels[0],
                                                                         hotels[0]);
 
@@ -126,6 +119,17 @@ public class NewItineraryActivity extends AppCompatActivity {
             }
         });
 
+        // Getting intent
+        Intent intent = getIntent();
+        itinerary = intent.getStringArrayListExtra(MainActivity.LOCATION_KEY);
+        datekey = intent.getStringExtra(MainActivity.DATE_KEY);
+        if (itinerary == null || datekey == null) {
+            itinerary = new ArrayList<>();
+        } else {
+            editTextItineraryDate.setText(datekey);
+        }
+
+        // Setting on click listeners
         listSearchResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -143,7 +147,10 @@ public class NewItineraryActivity extends AppCompatActivity {
                     Toast.makeText(v.getContext(), "Hotel cannot be empty", Toast.LENGTH_SHORT).show();
                 } else {
                     datekey = editTextItineraryDate.getText().toString();
-                    itinerary.add(hotel);
+                    if (!itinerary.contains(hotel)){
+                        itinerary.add(hotel);
+                    }
+
                     Intent intent = new Intent(v.getContext(),EditItineraryActivity.class);
                     intent.putExtra(MainActivity.LOCATION_KEY, itinerary);
                     intent.putExtra(MainActivity.DATE_KEY,datekey);

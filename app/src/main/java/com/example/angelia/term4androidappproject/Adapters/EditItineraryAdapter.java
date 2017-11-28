@@ -19,7 +19,6 @@ import java.util.List;
 public class EditItineraryAdapter extends RecyclerView.Adapter<EditItineraryAdapter.ViewHolder> {
 
     private List<String> locationList;
-    private boolean listChanged;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView location;

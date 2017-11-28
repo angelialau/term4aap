@@ -33,7 +33,7 @@ public class EditItineraryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_itinerary);
 
         // Getting data from extras
-        Intent incoming = getIntent();
+        final Intent incoming = getIntent();
         dateFromIntent = incoming.getStringExtra(MainActivity.DATE_KEY);
         locationsFromIntent = incoming.getStringArrayListExtra(MainActivity.LOCATION_KEY);
 
@@ -56,8 +56,9 @@ public class EditItineraryActivity extends AppCompatActivity {
         buttonDoneItinerary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Intent intent = new Intent(v.getContext(),CalculateItineraryActivity.class);
+                intent.putStringArrayListExtra(MainActivity.LOCATION_KEY,locationsFromIntent);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
@@ -66,6 +67,8 @@ public class EditItineraryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),NewItineraryActivity.class);
+                intent.putStringArrayListExtra(MainActivity.LOCATION_KEY,locationsFromIntent);
+                intent.putExtra(MainActivity.DATE_KEY,dateFromIntent);
                 startActivity(intent);
             }
         });
