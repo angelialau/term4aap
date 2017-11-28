@@ -50,12 +50,10 @@ public class ItineraryCalculator {
                 fromLocationByPublic = this.publicTransportHashMap.get(current);
                 fromLocationByTaxi = this.taxiHashMap.get(current);
 
-                bruteForceHelper(wantToVisit, visited, fromLocationByFoot, "foot", cost, time, -2);
-                bruteForceHelper(wantToVisit, visited, fromLocationByPublic, "public transport", cost, time, -2);
-                bruteForceHelper(wantToVisit, visited, fromLocationByTaxi, "taxi", cost, time, -2);
+                count = -2;
             }
             else {
-                if (cost > 20) {
+                if (cost > 21000000) {
                     return;
                 }
                 else if (this.bestTime > time) {
@@ -67,7 +65,7 @@ public class ItineraryCalculator {
         }
 
         else if (count == 0) {
-            visited.put(start, "NA");
+            //visited.put(start, "NA");
             wantToVisit.remove(start);
 
             fromLocationByFoot = this.footHashMap.get(start);
@@ -75,7 +73,7 @@ public class ItineraryCalculator {
             fromLocationByTaxi = this.taxiHashMap.get(start);
         }
 
-        else {
+        else if (count > 0) {
             fromLocationByFoot = this.footHashMap.get(current);
             fromLocationByPublic = this.publicTransportHashMap.get(current);
             fromLocationByTaxi = this.taxiHashMap.get(current);
