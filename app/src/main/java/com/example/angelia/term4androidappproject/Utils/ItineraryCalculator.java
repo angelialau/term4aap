@@ -27,10 +27,6 @@ public class ItineraryCalculator {
     private static final String start = "Marina Bay Sands";
     private static final String TAG = "Itinerary Calculator";
 
-    private static LinkedTreeMap fromLocationByFoot;
-    private static LinkedTreeMap fromLocationByPublic;
-    private static LinkedTreeMap fromLocationByTaxi;
-
     public ItineraryCalculator(HashMap<String, LinkedTreeMap> footHashMap,
                                HashMap<String, LinkedTreeMap> publicTransportHashMap,
                                HashMap<String, LinkedTreeMap> taxiHashMap) {
@@ -43,6 +39,10 @@ public class ItineraryCalculator {
     public void bruteForceCalculate(ArrayList<String> wantToVisit, LinkedHashMap<String,String> visited,
                                                       double cost, double time, int count, String current){
 
+        LinkedTreeMap fromLocationByFoot = null;
+        LinkedTreeMap fromLocationByPublic = null;
+        LinkedTreeMap fromLocationByTaxi = null;
+
         if (wantToVisit.isEmpty()) {
             if (count >= 0) {
                 wantToVisit.add(start);
@@ -53,14 +53,14 @@ public class ItineraryCalculator {
                 count = -10;
             }
             else {
-                if (cost > 21000000) {
+                if (cost > 20) {
                     return;
                 }
                 else if (this.bestTime > time) {
                     this.bestTime = time;
                     this.bestItinerary = visited;
-                    Log.i(TAG, "bruteForceCalculate: " + time);
-                    Log.i(TAG, "bruteForceCalculate: " + visited.toString());
+                    //Log.i(TAG, "bruteForceCalculate: " + time);
+                    //Log.i(TAG, "bruteForceCalculate: " + visited.toString());
                     return;
                 }
             }
@@ -80,6 +80,10 @@ public class ItineraryCalculator {
             fromLocationByTaxi = this.taxiHashMap.get(current);
         }
 
+        Log.i(TAG, "bruteForceCalculate: " + current);
+        Log.i(TAG, "bruteForceCalculate: " + Arrays.toString(wantToVisit.toArray()));
+        Log.i(TAG, "bruteForceCalculate: " + visited.toString());
+
         bruteForceHelper(wantToVisit, visited, fromLocationByFoot, "foot", cost, time, count);
         bruteForceHelper(wantToVisit, visited, fromLocationByPublic, "public transport", cost, time, count);
         bruteForceHelper(wantToVisit, visited, fromLocationByTaxi, "taxi", cost, time, count);
@@ -96,14 +100,15 @@ public class ItineraryCalculator {
         LinkedTreeMap price_time;
 
         for (String place : wantToVisit) {
-            temp_visited = (LinkedHashMap) visited.clone();
-            temp_wantToVisit = (ArrayList) wantToVisit.clone();
+            temp_visited = new LinkedHashMap<>(visited);
+            temp_wantToVisit = new ArrayList<>(wantToVisit);
 
             price_time = (LinkedTreeMap) data.get(place);
-            Log.i(TAG, "bruteForceHelper want to go : " + place + " via type: " + type); //current location
-            Log.i(TAG, "bruteForceHelper want to visit: " + Arrays.toString(temp_wantToVisit.toArray()));
-            Log.i(TAG, "bruteForceHelper have already visited: " + temp_visited);
-            Log.i(TAG, "bruteForceHelper from where i am, my options: " + data.toString());
+
+            Log.i(TAG, "bruteForceHelper: " + place);
+            Log.i(TAG, "bruteForceHelper: " + count);
+            price_time.toString();
+
 
             if (price_time != null) {
                 temp_visited.put(place, type);
