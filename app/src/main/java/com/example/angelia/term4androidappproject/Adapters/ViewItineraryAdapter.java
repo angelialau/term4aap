@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.angelia.term4androidappproject.Models.ItineraryHolder;
 import com.example.angelia.term4androidappproject.R;
 import com.example.angelia.term4androidappproject.Models.ViewItineraryItem;
 
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class ViewItineraryAdapter extends RecyclerView.Adapter<ViewItineraryAdapter.ViewHolder> {
 
-    private List<ViewItineraryItem> viewItineraryItemList;
+    private List<ItineraryHolder> itineraryHolderList;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView date, place;
@@ -32,8 +33,8 @@ public class ViewItineraryAdapter extends RecyclerView.Adapter<ViewItineraryAdap
         }
     }
 
-    public ViewItineraryAdapter(List<ViewItineraryItem> viewItineraryItemList) {
-        this.viewItineraryItemList = viewItineraryItemList;
+    public ViewItineraryAdapter(List<ItineraryHolder> itineraryHolderList) {
+        this.itineraryHolderList = itineraryHolderList;
     }
 
     @Override
@@ -46,28 +47,27 @@ public class ViewItineraryAdapter extends RecyclerView.Adapter<ViewItineraryAdap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ViewItineraryItem item = viewItineraryItemList.get(position);
-        android.text.format.DateFormat df = new android.text.format.DateFormat();
+        ItineraryHolder item = this.itineraryHolderList.get(position);
 
-        holder.date.setText(df.format("dd MMM yyyy", item.getDate()));
-        holder.place.setText(item.getPlaces().get(0));
+        holder.date.setText(item.getDate());
+        holder.place.setText(item.getLocations());
 
-        switch (item.getType().toLowerCase()){
-            case "temple":
-                holder.type.setImageResource(R.drawable.temple);
-                break;
-            case "church":
-                holder.type.setImageResource(R.drawable.church);
-                break;
-            case "mosque":
-                holder.type.setImageResource(R.drawable.mosque);
-                holder.type.setPadding(0,0,0,0);
-                break;
-        }
     }
 
     @Override
     public int getItemCount() {
-        return viewItineraryItemList.size();
+        return itineraryHolderList.size();
+    }
+
+    public void add(ItineraryHolder itineraryHolder) {
+        this.itineraryHolderList.add(itineraryHolder);
+        this.notifyDataSetChanged();
+        this.notifyItemInserted(this.getItemCount()-1);
+        this.notifyItemRangeChanged(0,this.getItemCount());
+    }
+
+    public void clear() {
+        this.itineraryHolderList.clear();
+        this.notifyDataSetChanged();
     }
 }

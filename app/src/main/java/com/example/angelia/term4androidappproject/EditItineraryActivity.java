@@ -58,6 +58,7 @@ public class EditItineraryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),CalculateItineraryActivity.class);
                 intent.putStringArrayListExtra(MainActivity.LOCATION_KEY,locationsFromIntent);
+                intent.putExtra(MainActivity.DATE_KEY,dateFromIntent);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
