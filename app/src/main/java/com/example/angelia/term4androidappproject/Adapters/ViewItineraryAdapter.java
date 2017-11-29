@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.example.angelia.term4androidappproject.Models.ItineraryHolder;
 import com.example.angelia.term4androidappproject.R;
-import com.example.angelia.term4androidappproject.Models.ViewItineraryItem;
 
 import java.util.List;
 
