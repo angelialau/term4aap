@@ -90,6 +90,7 @@ public class ItineraryCalculator {
         bruteForceHelper(wantToVisit, visited, fromLocationByFoot, "foot", cost, time, count);
         bruteForceHelper(wantToVisit, visited, fromLocationByPublic, "public transport", cost, time, count);
         bruteForceHelper(wantToVisit, visited, fromLocationByTaxi, "taxi", cost, time, count);
+
     }
 
     public void bruteForceHelper(ArrayList<String> wantToVisit, LinkedHashMap<String,String> visited,
@@ -106,6 +107,7 @@ public class ItineraryCalculator {
             temp_wantToVisit = new ArrayList<>(wantToVisit);
 
             price_time = (LinkedTreeMap) data.get(place);
+
             Log.i(TAG, "bruteForceHelper: " + place);
             Log.i(TAG, "bruteForceHelper: " + count);
             price_time.toString();
@@ -117,6 +119,7 @@ public class ItineraryCalculator {
 
                 temp_cost = cost + (Double) price_time.get(PRICE_KEY);
                 temp_time = time + (Double) price_time.get(TIME_KEY);
+
 
                 bruteForceCalculate(temp_wantToVisit, temp_visited, temp_cost, temp_time, count+1, place);
             }
