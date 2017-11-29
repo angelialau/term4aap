@@ -19,7 +19,7 @@ public class ItineraryCalculator {
     private HashMap<String,LinkedTreeMap> publicTransportHashMap;
     private HashMap<String,LinkedTreeMap> taxiHashMap;
 
-    private HashMap<String, String> bestItinerary;
+    private LinkedHashMap<String, String> bestItinerary;
     private double bestTime = Math.pow(2,31);
 
     private static final String PRICE_KEY = "price";
@@ -120,7 +120,7 @@ public class ItineraryCalculator {
         }
     }
 
-    public HashMap<String, String> getBestItinerary() {
+    public LinkedHashMap<String, String> getBestItinerary() {
         return this.bestItinerary;
     }
 
