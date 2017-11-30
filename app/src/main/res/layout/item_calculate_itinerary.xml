@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textCalculatedLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:layout_centerVertical="true"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:padding="8dp"
+            />
+
+        <TextView
+            android:id="@+id/textTravelMethod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:text="Method"
+            android:padding="8dp"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

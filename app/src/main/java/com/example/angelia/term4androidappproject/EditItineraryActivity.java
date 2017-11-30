@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 public class EditItineraryActivity extends AppCompatActivity {
 
-    Button buttonDoneItinerary;
+    Button buttonBruteForceItinerary;
     Button buttonAddMoreLocation;
 
     LinearLayoutManager linearLayoutManager;
@@ -38,7 +38,7 @@ public class EditItineraryActivity extends AppCompatActivity {
         locationsFromIntent = incoming.getStringArrayListExtra(MainActivity.LOCATION_KEY);
 
         // Wiring up all my views
-        buttonDoneItinerary = findViewById(R.id.buttonDoneWithItinerary);
+        buttonBruteForceItinerary = findViewById(R.id.buttonBruteForce);
         buttonAddMoreLocation = findViewById(R.id.buttonAddMoreLocation);
         recyclerShowLocations = findViewById(R.id.recyclerShowLocations);
 
@@ -53,11 +53,12 @@ public class EditItineraryActivity extends AppCompatActivity {
         }
 
         // Setting on click listeners
-        buttonDoneItinerary.setOnClickListener(new View.OnClickListener() {
+        buttonBruteForceItinerary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),CalculateItineraryActivity.class);
                 intent.putStringArrayListExtra(MainActivity.LOCATION_KEY,locationsFromIntent);
+                intent.putExtra(MainActivity.DATE_KEY,dateFromIntent);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
