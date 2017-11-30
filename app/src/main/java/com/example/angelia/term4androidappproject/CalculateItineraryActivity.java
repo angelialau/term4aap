@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.angelia.term4androidappproject.Utils.ItineraryCalculator;
 import com.example.angelia.term4androidappproject.Utils.JsonProcessing;
+import com.example.angelia.term4androidappproject.Utils.ShortestPathItineraryCalculator;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class CalculateItineraryActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         ArrayList<String> locations = intent.getStringArrayListExtra(MainActivity.LOCATION_KEY);
+        double budget = 20.0;
 
         HashMap<String, LinkedTreeMap> footmap = JsonProcessing.hashMapify(R.raw.foot, this);
         HashMap<String, LinkedTreeMap> publicmap = JsonProcessing.hashMapify(R.raw.public_transport, this);
@@ -34,8 +36,18 @@ public class CalculateItineraryActivity extends AppCompatActivity {
         LinkedHashMap<String,String> visited = new LinkedHashMap<>();
         ItineraryCalculator calculator = new ItineraryCalculator(footmap,publicmap,taximap);
         calculator.bruteForceCalculate(locations,visited,0,0,0,"Marina Bay Sands");
+        String bruteforceResult = calculator.getBestItinerary().toString();
+        String bruteforceTime = String.valueOf(calculator.getBestTime());
 
-        Log.i("Calculate Itinerary", "onCreate: " + calculator.getBestTime());
-        result.setText(calculator.getBestItinerary().toString());
+        ShortestPathItineraryCalculator spCalculator = new ShortestPathItineraryCalculator(footmap,publicmap,taximap);
+        spCalculator.spItineraryCalculator(locations, budget);
+        String nnResult = spCalculator.getSpBestItinerary().toString();
+        String nnTime = String.valueOf(spCalculator.getTotalTimeNeeded());
+
+        String itineraries = String.format("using brute force: %s (time = %s), using greedy approach: %s (time = %s)",
+                bruteforceResult, bruteforceTime, nnResult, nnTime);
+        result.setText(itineraries);
+        Log.i("Angelia", "nnResult = " +nnResult);
+        Log.i("Angelia", "nnTime = " +nnTime);
     }
 }
