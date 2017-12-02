@@ -57,17 +57,17 @@ public class CalculateItineraryActivity extends AppCompatActivity {
         HashMap<String, LinkedTreeMap> taximap = JsonProcessing.hashMapify(R.raw.taxi,this);
 
         ShortestPathItineraryCalculator calculator = new ShortestPathItineraryCalculator(footmap,publicmap,taximap);
+        long startTime = System.nanoTime();
         calculator.spItineraryCalculator(locations, budget);
-        String nnResult = calculator.getSpBestItinerary().toString();
-        String nnTime = String.valueOf(calculator.getTotalTimeNeeded());
+        long endTime = System.nanoTime();
+
+        long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+        Log.i("results", "result: "+ duration);
 
         //rayson calculator
 //        LinkedHashMap<String,String> visited = new LinkedHashMap<>();
 //        ItineraryCalculator calculator = new ItineraryCalculator(footmap,publicmap,taximap, 20);
 //        calculator.bruteForceCalculate(locations,visited,0,0,0,"Marina Bay Sands");
-
-        Log.i("Angelia", "nnResult = " +nnResult);
-        Log.i("Angelia", "nnTime = " +nnTime);
 
 
         // Putting calculated itinerary on recyclerview

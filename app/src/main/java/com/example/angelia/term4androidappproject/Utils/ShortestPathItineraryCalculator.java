@@ -1,6 +1,5 @@
 package com.example.angelia.term4androidappproject.Utils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.internal.LinkedTreeMap;
 import java.util.ArrayList;
@@ -77,13 +76,10 @@ public class ShortestPathItineraryCalculator {
      */
     public void spItineraryCalculator(ArrayList<String> placesToVisit, double budget){
 
-        spBestItinerary.put(start, "NA"); //start from marina
+//        spBestItinerary.put(start, "NA"); //destination, how to get to destination
         double shortestTimeNeeded = Math.pow(2,32);
 
         if(itineraryForDebugging.size()==0){
-            itineraryForDebugging.add(start);
-            timePath.add(0.0);
-
             String firstLocation = null;
             placesToVisit.remove(start); //don't double count mbs
 
@@ -97,9 +93,9 @@ public class ShortestPathItineraryCalculator {
                 }
             }
 
-            itineraryForDebugging.add(firstLocation);
-            timePath.add(shortestTimeNeeded);
-            spBestItinerary.put(firstLocation, FOOT_KEY);
+            itineraryForDebugging.add(firstLocation); //[0] = first destination
+            timePath.add(shortestTimeNeeded); //[0] = time from mbs -> first location
+            spBestItinerary.put(firstLocation, FOOT_KEY); //first entry
             placesToVisit.remove(firstLocation);
             totalTimeNeeded += shortestTimeNeeded;
 
@@ -121,7 +117,7 @@ public class ShortestPathItineraryCalculator {
                 }
             }
 
-            spBestItinerary.put(nextLocation, FOOT_KEY);
+            spBestItinerary.put(nextLocation, FOOT_KEY); //get to nextLocation via Foot
             itineraryForDebugging.add(nextLocation);
             timePath.add(shortestTimeNeeded);
             placesToVisit.remove(nextLocation); //so that i only check remaining unvisited locations
@@ -134,15 +130,12 @@ public class ShortestPathItineraryCalculator {
             LinkedTreeMap dataOfLastPlace = this.footHashMap.get(lastPlace);
             LinkedTreeMap priceTimeOfLastPlace = (LinkedTreeMap) dataOfLastPlace.get(start);
             Double timeBackToStart = (Double) priceTimeOfLastPlace.get(TIME_KEY);
-            spBestItinerary.put(lastPlace, FOOT_KEY);
+            spBestItinerary.put(start, FOOT_KEY);
             itineraryForDebugging.add(start);
-            timePath.add(timeBackToStart);
+            timePath.add(timeBackToStart); //last element is the time it takes to go back to mbs
             totalTimeNeeded += timeBackToStart;
         }
 
-        //remove source to prevent double counting mbs
-        itineraryForDebugging.remove(0);
-        timePath.remove(0);
         //travelling by foot is free
         for (int i = 0; i < itineraryForDebugging.size(); i++) {
             costPath.add(FREE);
@@ -204,35 +197,50 @@ public class ShortestPathItineraryCalculator {
         Log.i(TAG, "costpath after reordering: "+ costPath.toString());
 
 
+
+
         for (int i = 0; i < itineraryForDebugging.size()-1; i++) { //stop at second last element cos im investigating by pair of locations
-            String currentLocation = itineraryForDebugging.get(i);
-            String nextLocation = itineraryForDebugging.get(i+1);
+            int indexOfCurrent; //destination
+            int indexOfPrev; //origin
+            String currentLocation;
+            String prevLocation;
+            if(i==0){
+                indexOfPrev = itineraryForDebugging.size()-1; //last element
+                indexOfCurrent = i;
 
-            LinkedTreeMap dataOfCurrentLocation = modeOfTransport.get(currentLocation);
-            LinkedTreeMap priceTimeOfNextLocation = (LinkedTreeMap) dataOfCurrentLocation.get(nextLocation);
+            }else{//i=1 onwards
+                indexOfPrev = i-1;
+                indexOfCurrent = i;
+            }
+            prevLocation = itineraryForDebugging.get(indexOfPrev);
+            currentLocation = itineraryForDebugging.get(indexOfCurrent);
 
-            Double timeNeeded = (Double) priceTimeOfNextLocation.get(TIME_KEY);
-            Double prevTimeNeeded = timePath.get(i);
-            Double tempTotalTimeNeeded = totalTimeNeeded - prevTimeNeeded + timeNeeded;
+            LinkedTreeMap dataOfPreviousLocation = modeOfTransport.get(prevLocation);
+            LinkedTreeMap priceTimeOfCurrentLocation = (LinkedTreeMap) dataOfPreviousLocation.get(currentLocation);
 
-            Double cost = (Double) priceTimeOfNextLocation.get(PRICE_KEY);
-            Double prevCost = costPath.get(i);
+            Double timeNeeded = (Double) priceTimeOfCurrentLocation.get(TIME_KEY);
+            Double oldTimeNeeded = timePath.get(indexOfCurrent);
+            Double tempTotalTimeNeeded = totalTimeNeeded - oldTimeNeeded + timeNeeded;
+
+            Double newCost = (Double) priceTimeOfCurrentLocation.get(PRICE_KEY);
+            Double oldCost = costPath.get(indexOfCurrent);
 //            Log.i(TAG, "cost of ")
-            Double tempTotalCostNeeded = costOfItinerary - prevCost + cost;
-
+            Double tempTotalCostNeeded = costOfItinerary - oldCost + newCost;
 
             if(tempTotalCostNeeded<=budget && tempTotalTimeNeeded<totalTimeNeeded){
-                spBestItinerary.put(nextLocation, mode);
+                spBestItinerary.put(currentLocation, mode);
                 totalTimeNeeded = tempTotalTimeNeeded;
                 costOfItinerary = tempTotalCostNeeded; //since budget may increase, and you may not be able to relax future options
-                timePath.add(i, timeNeeded); //replace prev time of edge with shorter option
-                timePath.remove(i+1);
-                costPath.add(i, cost);
-                costPath.remove(i+1);
+                timePath.add(indexOfCurrent, timeNeeded); //replace prev time of edge with shorter option
+                timePath.remove(indexOfCurrent+1);
+                costPath.add(indexOfCurrent, newCost);
+                costPath.remove(indexOfCurrent+1);
+
+                Log.i(TAG, "time path after relaxation: " + timePath);
+                Log.i(TAG, "cost path after relaxation: " + costPath);
 
                 //no need to update itineraryForDebugging since that is just a list of locations to visit which does not change with relaxation
             }
-
 
         }
 
