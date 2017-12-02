@@ -8,22 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.angelia.term4androidappproject.Adapters.CalculatedItineraryAdapter;
 import com.example.angelia.term4androidappproject.Models.ItineraryHolder;
-import com.example.angelia.term4androidappproject.Utils.ItineraryCalculator;
 import com.example.angelia.term4androidappproject.Utils.JsonProcessing;
 import com.example.angelia.term4androidappproject.Utils.ShortestPathItineraryCalculator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.internal.LinkedTreeMap;
-
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 public class CalculateItineraryActivity extends AppCompatActivity {
 
@@ -51,7 +46,7 @@ public class CalculateItineraryActivity extends AppCompatActivity {
         // Calculating Itinerary
         final Intent intent = getIntent();
         ArrayList<String> locations = intent.getStringArrayListExtra(MainActivity.LOCATION_KEY);
-
+        Log.i("Angelia", locations.toString());
         double budget = 20.0;
 
         String date = intent.getStringExtra(MainActivity.DATE_KEY);
@@ -61,29 +56,23 @@ public class CalculateItineraryActivity extends AppCompatActivity {
         HashMap<String, LinkedTreeMap> publicmap = JsonProcessing.hashMapify(R.raw.public_transport, this);
         HashMap<String, LinkedTreeMap> taximap = JsonProcessing.hashMapify(R.raw.taxi,this);
 
-        LinkedHashMap<String,String> visited = new LinkedHashMap<>();
-        ItineraryCalculator calculator = new ItineraryCalculator(footmap,publicmap,taximap, 20);
-        calculator.bruteForceCalculate(locations,visited,0,0,0,"Marina Bay Sands");
+        ShortestPathItineraryCalculator calculator = new ShortestPathItineraryCalculator(footmap,publicmap,taximap);
+        calculator.spItineraryCalculator(locations, budget);
+        String nnResult = calculator.getSpBestItinerary().toString();
+        String nnTime = String.valueOf(calculator.getTotalTimeNeeded());
 
-//        String bruteforceResult = calculator.getBestItinerary().toString();
-//        String bruteforceTime = String.valueOf(calculator.getBestTime());
-//
-//        ShortestPathItineraryCalculator spCalculator = new ShortestPathItineraryCalculator(footmap,publicmap,taximap);
-//        spCalculator.spItineraryCalculator(locations, budget);
-//        String nnResult = spCalculator.getSpBestItinerary().toString();
-//        String nnTime = String.valueOf(spCalculator.getTotalTimeNeeded());
-//
-//        String itineraries = String.format("using brute force: %s (time = %s), using greedy approach: %s (time = %s)",
-//                bruteforceResult, bruteforceTime, nnResult, nnTime);
-//        result.setText(itineraries);
-//        Log.i("Angelia", "nnResult = " +nnResult);
-//        Log.i("Angelia", "nnTime = " +nnTime);
+        //rayson calculator
+//        LinkedHashMap<String,String> visited = new LinkedHashMap<>();
+//        ItineraryCalculator calculator = new ItineraryCalculator(footmap,publicmap,taximap, 20);
+//        calculator.bruteForceCalculate(locations,visited,0,0,0,"Marina Bay Sands");
 
+        Log.i("Angelia", "nnResult = " +nnResult);
+        Log.i("Angelia", "nnTime = " +nnTime);
 
-        Log.i("Calculate Itinerary", "onCreate: " + calculator.getBestTime());
 
         // Putting calculated itinerary on recyclerview
-        recyclerView.setAdapter(new CalculatedItineraryAdapter(calculator.getBestItinerary()));
+//        recyclerView.setAdapter(new CalculatedItineraryAdapter(calculator.getBestItinerary())); //rayson calculator
+        recyclerView.setAdapter(new CalculatedItineraryAdapter(calculator.getSpBestItinerary()));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Setting up Firebase to connect to
@@ -94,7 +83,8 @@ public class CalculateItineraryActivity extends AppCompatActivity {
         itineraryDatabaseReference = firebaseDatabase.getReference().child(UID);
 
         // Sending data to Firebase
-        itineraryHolder = new ItineraryHolder(date, calculator.getBestItinerary());
+//        itineraryHolder = new ItineraryHolder(date, calculator.getBestItinerary()); //raysons calculator
+        itineraryHolder = new ItineraryHolder(date, calculator.getSpBestItinerary());
         itineraryDatabaseReference.push().setValue(itineraryHolder);
 
         // Set button to return to MainActivity

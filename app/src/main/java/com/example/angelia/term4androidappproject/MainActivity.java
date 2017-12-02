@@ -60,19 +60,18 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         sharedPref.registerOnSharedPreferenceChangeListener(this);
 
         boolean useDarkTheme = sharedPref.getBoolean(getString(R.string.translate_pref), false); //translate_pref actually pref to change to dark theme
-        Log.i("Angelia", "oncreate dark theme preference: " + useDarkTheme);
+        Log.i("UserPref", "oncreate dark theme preference: " + useDarkTheme);
 
         String inputRoutePref = sharedPref.getString(getString(R.string.route_pref),"default"); //default " ", else, best_route, less_walking, fewer_transfers
-        Log.i("Angelia", "oncreate route preference: " + inputRoutePref);
+        Log.i("UserPref", "oncreate route preference: " + inputRoutePref);
 
         final String inputPlacePref = sharedPref.getString(getString(R.string.place_pref), "no preference");
-        Log.i("Angelia", "oncreate place preference: " + inputPlacePref);
+        Log.i("UserPref", "oncreate place preference: " + inputPlacePref);
         preferences.setPlacePref(inputPlacePref);
 
         if(useDarkTheme){
             setTheme(R.style.AppTheme_Dark);
         }
-
 
 
         super.onCreate(savedInstanceState);
@@ -128,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(),NearMeActivity.class);
+            Intent intent = new Intent(v.getContext(), NearMeActivity.class);
             intent.putExtra("PlacePref",preferences.getPlacePref());
             startActivity(intent);
         }};
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(),NewItineraryActivity.class);
+            Intent intent = new Intent(v.getContext(), NewItineraryActivity.class);
             intent.putExtra("PlacePref",preferences.getPlacePref());
             startActivity(intent);
         }};
