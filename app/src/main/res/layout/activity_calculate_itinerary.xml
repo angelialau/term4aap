@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,8 +7,30 @@
     tools:context="com.example.angelia.term4androidappproject.CalculateItineraryActivity">
 
     <TextView
-        android:id="@+id/showResult"
+        android:id="@+id/textCalculateTitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="Travel in this order"
+        android:layout_margin="@dimen/page_border_margin"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/calulatedRecycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textCalculateTitle"
+        android:layout_above="@id/buttonReturnToMain"
+        android:layout_marginLeft="@dimen/page_border_margin"
+        android:layout_marginRight="@dimen/page_border_margin"/>
+
+    <Button
+        android:id="@+id/buttonReturnToMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/page_border_margin"
+        android:text="OK"/>
+
+</RelativeLayout>

@@ -24,16 +24,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/buttonDoneWithItinerary"
+        android:layout_toLeftOf="@+id/buttonBruteForce"
         android:text="Add"/>
 
     <Button
-        android:id="@+id/buttonDoneWithItinerary"
+        android:id="@+id/buttonBruteForce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/buttonApproximate"
+        android:text="Brute Force"/>
+
+    <Button
+        android:id="@+id/buttonApproximate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="Done"/>
+        android:text="Approximate"/>
 
 
 </RelativeLayout>

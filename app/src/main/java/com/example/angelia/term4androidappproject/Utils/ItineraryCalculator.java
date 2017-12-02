@@ -19,8 +19,9 @@ public class ItineraryCalculator {
     private HashMap<String,LinkedTreeMap> publicTransportHashMap;
     private HashMap<String,LinkedTreeMap> taxiHashMap;
 
-    private HashMap<String, String> bestItinerary;
+    private LinkedHashMap<String, String> bestItinerary;
     private double bestTime = Math.pow(2,31);
+    private double maxCost;
 
     private static final String PRICE_KEY = "price";
     private static final String TIME_KEY = "time";
@@ -29,11 +30,13 @@ public class ItineraryCalculator {
 
     public ItineraryCalculator(HashMap<String, LinkedTreeMap> footHashMap,
                                HashMap<String, LinkedTreeMap> publicTransportHashMap,
-                               HashMap<String, LinkedTreeMap> taxiHashMap) {
+                               HashMap<String, LinkedTreeMap> taxiHashMap,
+                               double maxCost) {
 
         this.footHashMap = footHashMap;
         this.publicTransportHashMap = publicTransportHashMap;
         this.taxiHashMap = taxiHashMap;
+        this.maxCost = maxCost;
     }
 
     public void bruteForceCalculate(ArrayList<String> wantToVisit, LinkedHashMap<String,String> visited,
@@ -53,7 +56,7 @@ public class ItineraryCalculator {
                 count = -10;
             }
             else {
-                if (cost > 20) {
+                if (cost > maxCost) {
                     return;
                 }
                 else if (this.bestTime > time) {
@@ -123,7 +126,7 @@ public class ItineraryCalculator {
         }
     }
 
-    public HashMap<String, String> getBestItinerary() {
+    public LinkedHashMap<String, String> getBestItinerary() {
         return this.bestItinerary;
     }
 
