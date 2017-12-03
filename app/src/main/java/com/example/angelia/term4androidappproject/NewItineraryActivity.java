@@ -28,7 +28,7 @@ public class NewItineraryActivity extends AppCompatActivity {
 
     ArrayList<String> locations = new ArrayList<>();
     ArrayList<String> processedResults;
-    String[] hotels = new String[3];
+    String[] hotels = new String[1];
 
     EditText editTextItineraryDate;
     EditText editTextCost;
