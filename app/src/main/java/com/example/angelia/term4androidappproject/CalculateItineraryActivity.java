@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.net.URL;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -58,8 +59,13 @@ public class CalculateItineraryActivity extends AppCompatActivity {
 
         LinkedHashMap<String,String> visited = new LinkedHashMap<>();
         ItineraryCalculator calculator = new ItineraryCalculator(footmap,publicmap,taximap, 20);
-        calculator.bruteForceCalculate(locations,visited,0,0,0,"Marina Bay Sands");
 
+        Long startTime = System.nanoTime();
+        calculator.bruteForceCalculate(locations,visited,0,0,0,"Marina Bay Sands");
+        Long endTime = System.nanoTime();
+        Double duration = (endTime - startTime)/1000000.0;
+
+        Log.i("Calculate Itinerary", "onCreate: running time of calculation in milliseconds = " + duration);
         Log.i("Calculate Itinerary", "onCreate: " + calculator.getBestTime());
 
         // Putting calculated itinerary on recyclerview
