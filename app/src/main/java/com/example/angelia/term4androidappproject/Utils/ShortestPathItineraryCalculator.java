@@ -192,7 +192,7 @@ public class ShortestPathItineraryCalculator {
         Log.i(TAG, "timepath after reordering: "+ timePath.toString());
         Log.i(TAG, "costpath after reordering: "+ costPath.toString());
 
-        for (int i = 0; i < itineraryForDebugging.size(); i++) { //stop at second last element cos im investigating by pair of locations
+        for (int i = 0; i < itineraryForDebugging.size(); i++) {
             int indexOfCurrent; //destination
             int indexOfPrev; //origin
             String currentLocation;
@@ -217,7 +217,6 @@ public class ShortestPathItineraryCalculator {
 
             Double newCost = (Double) priceTimeOfCurrentLocation.get(PRICE_KEY);
             Double oldCost = costPath.get(indexOfCurrent);
-//            Log.i(TAG, "cost of ")
             Double tempTotalCostNeeded = costOfItinerary - oldCost + newCost;
 
             if(tempTotalCostNeeded<=budget && tempTotalTimeNeeded<totalTimeNeeded){
