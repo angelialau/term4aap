@@ -30,6 +30,7 @@ public class EditItineraryActivity extends AppCompatActivity {
 
     String dateFromIntent;
     ArrayList<String> locationsFromIntent;
+    Double costFromIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class EditItineraryActivity extends AppCompatActivity {
         final Intent incoming = getIntent();
         dateFromIntent = incoming.getStringExtra(MainActivity.DATE_KEY);
         locationsFromIntent = incoming.getStringArrayListExtra(MainActivity.LOCATION_KEY);
+        costFromIntent = incoming.getDoubleExtra(MainActivity.COST_KEY, 0);
 
         // Wiring up all my views
         buttonBruteForceItinerary = findViewById(R.id.buttonBruteForce);
@@ -70,6 +72,7 @@ public class EditItineraryActivity extends AppCompatActivity {
                 intent.putExtra("Type", BRUTE);
                 intent.putStringArrayListExtra(MainActivity.LOCATION_KEY,locationsFromIntent);
                 intent.putExtra(MainActivity.DATE_KEY,dateFromIntent);
+                intent.putExtra(MainActivity.COST_KEY,costFromIntent);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
@@ -81,6 +84,7 @@ public class EditItineraryActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(),NewItineraryActivity.class);
                 intent.putStringArrayListExtra(MainActivity.LOCATION_KEY,locationsFromIntent);
                 intent.putExtra(MainActivity.DATE_KEY,dateFromIntent);
+                intent.putExtra(MainActivity.COST_KEY,costFromIntent);
                 startActivity(intent);
             }
         });
@@ -92,6 +96,7 @@ public class EditItineraryActivity extends AppCompatActivity {
                 intent.putExtra("Type", APPROX);
                 intent.putStringArrayListExtra(MainActivity.LOCATION_KEY,locationsFromIntent);
                 intent.putExtra(MainActivity.DATE_KEY,dateFromIntent);
+                intent.putExtra(MainActivity.COST_KEY,costFromIntent);
                 startActivity(intent);
             }
         });

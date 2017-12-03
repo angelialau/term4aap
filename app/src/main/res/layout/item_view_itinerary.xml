@@ -10,7 +10,7 @@
         android:id="@+id/typeImageView"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:src="@drawable/mosque"
+        android:src="@drawable/images"
         android:scaleType="centerCrop"
         android:paddingTop="60dp"
         android:adjustViewBounds="true"/>
