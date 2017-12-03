@@ -84,6 +84,12 @@ public class ItineraryCalculator {
             fromLocationByTaxi = this.taxiHashMap.get(current);
         }
 
+
+//        Log.i(TAG, "bruteForceCalculate: " + current);
+//        Log.i(TAG, "bruteForceCalculate: " + Arrays.toString(wantToVisit.toArray()));
+//        Log.i(TAG, "bruteForceCalculate: " + visited.toString());
+
+
         bruteForceHelper(wantToVisit, visited, fromLocationByFoot, "foot", cost, time, count);
         bruteForceHelper(wantToVisit, visited, fromLocationByPublic, "public transport", cost, time, count);
         bruteForceHelper(wantToVisit, visited, fromLocationByTaxi, "taxi", cost, time, count);

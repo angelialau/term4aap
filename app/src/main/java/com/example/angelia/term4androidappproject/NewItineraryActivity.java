@@ -153,7 +153,7 @@ public class NewItineraryActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(v.getContext(),EditItineraryActivity.class);
                     intent.putExtra(MainActivity.LOCATION_KEY, itinerary);
-                    intent.putExtra(MainActivity.DATE_KEY,datekey);
+                    intent.putExtra(MainActivity.DATE_KEY, datekey);
                     startActivity(intent);
                 }
             }

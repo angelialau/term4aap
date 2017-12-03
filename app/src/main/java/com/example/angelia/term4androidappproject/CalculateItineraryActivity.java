@@ -8,16 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.angelia.term4androidappproject.Adapters.CalculatedItineraryAdapter;
 import com.example.angelia.term4androidappproject.Models.ItineraryHolder;
 import com.example.angelia.term4androidappproject.Utils.ItineraryCalculator;
 import com.example.angelia.term4androidappproject.Utils.JsonProcessing;
+import com.example.angelia.term4androidappproject.Utils.ShortestPathItineraryCalculator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.internal.LinkedTreeMap;
+
 
 import java.net.URL;
 import java.sql.Time;
@@ -51,13 +52,19 @@ public class CalculateItineraryActivity extends AppCompatActivity {
         // Calculating Itinerary
         final Intent intent = getIntent();
         ArrayList<String> locations = intent.getStringArrayListExtra(MainActivity.LOCATION_KEY);
+        Log.i("Angelia", locations.toString());
+        double budget = 20.0;
+
         String date = intent.getStringExtra(MainActivity.DATE_KEY);
+
 
         HashMap<String, LinkedTreeMap> footmap = JsonProcessing.hashMapify(R.raw.foot, this);
         HashMap<String, LinkedTreeMap> publicmap = JsonProcessing.hashMapify(R.raw.public_transport, this);
         HashMap<String, LinkedTreeMap> taximap = JsonProcessing.hashMapify(R.raw.taxi,this);
 
         LinkedHashMap<String,String> visited = new LinkedHashMap<>();
+
+        /*
         ItineraryCalculator calculator = new ItineraryCalculator(footmap,publicmap,taximap, 20);
 
         Long startTime = System.nanoTime();
@@ -68,8 +75,21 @@ public class CalculateItineraryActivity extends AppCompatActivity {
         Log.i("Calculate Itinerary", "onCreate: running time of calculation in milliseconds = " + duration);
         Log.i("Calculate Itinerary", "onCreate: " + calculator.getBestTime());
 
+        */
+
+        ShortestPathItineraryCalculator calculator = new ShortestPathItineraryCalculator(footmap,publicmap,taximap);
+        long startTime = System.nanoTime();
+        calculator.spItineraryCalculator(locations, budget);
+        long endTime = System.nanoTime();
+
+        long duration = (endTime - startTime)/1000000;  //divide by 1000000 to get milliseconds.
+        Log.i("results", "result: "+ duration);
+
+
         // Putting calculated itinerary on recyclerview
-        recyclerView.setAdapter(new CalculatedItineraryAdapter(calculator.getBestItinerary()));
+//        recyclerView.setAdapter(new CalculatedItineraryAdapter(calculator.getBestItinerary())); //rayson calculator
+
+        recyclerView.setAdapter(new CalculatedItineraryAdapter(calculator.getSpBestItinerary()));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Setting up Firebase to connect to
@@ -80,7 +100,8 @@ public class CalculateItineraryActivity extends AppCompatActivity {
         itineraryDatabaseReference = firebaseDatabase.getReference().child(UID);
 
         // Sending data to Firebase
-        itineraryHolder = new ItineraryHolder(date, calculator.getBestItinerary());
+//        itineraryHolder = new ItineraryHolder(date, calculator.getBestItinerary()); //raysons calculator
+        itineraryHolder = new ItineraryHolder(date, calculator.getSpBestItinerary());
         itineraryDatabaseReference.push().setValue(itineraryHolder);
 
         // Set button to return to MainActivity
