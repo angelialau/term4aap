@@ -2,8 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/settings"
         android:title="@string/settings" />
-    <item android:id="@+id/help"
-        android:title="@string/about_us" />
     <item android:id="@+id/signout"
         android:title="@string/sign_out" />
 </menu>

@@ -24,6 +24,11 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
+        if(MainActivity.useDarkTheme){
+            setTheme(R.style.AppTheme_Dark);
+        } else{
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
     }
 

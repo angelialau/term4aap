@@ -28,7 +28,7 @@ public class NewItineraryActivity extends AppCompatActivity {
 
     ArrayList<String> locations = new ArrayList<>();
     ArrayList<String> processedResults;
-    String[] hotels = new String[3];
+    String[] hotels = new String[1];
 
     EditText editTextItineraryDate;
     Spinner spinnerItineraryHotel;
@@ -46,6 +46,11 @@ public class NewItineraryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(MainActivity.useDarkTheme){
+            setTheme(R.style.AppTheme_Dark);
+        } else{
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_itinerary);
 

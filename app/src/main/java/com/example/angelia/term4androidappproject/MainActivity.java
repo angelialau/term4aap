@@ -53,13 +53,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public Button buttonFindNearMe;
     public Button buttonStartNewItinerary;
 
+    public static boolean useDarkTheme;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Setting up Shared Preferences
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPref.registerOnSharedPreferenceChangeListener(this);
 
-        boolean useDarkTheme = sharedPref.getBoolean(getString(R.string.translate_pref), false); //translate_pref actually pref to change to dark theme
+        useDarkTheme = sharedPref.getBoolean(getString(R.string.translate_pref), false); //translate_pref actually pref to change to dark theme
         Log.i("UserPref", "oncreate dark theme preference: " + useDarkTheme);
 
         String inputRoutePref = sharedPref.getString(getString(R.string.route_pref),"default"); //default " ", else, best_route, less_walking, fewer_transfers
@@ -71,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         if(useDarkTheme){
             setTheme(R.style.AppTheme_Dark);
+        }else{
+            setTheme(R.style.AppTheme);
         }
 
 
@@ -143,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     @Override
     protected void onResume() {
+        onSharedPreferenceChanged(sharedPref, getString(R.string.translate_pref));
         super.onResume();
         firebaseAuth.addAuthStateListener(authStateListener);
     }
@@ -209,7 +214,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         if (key.equals(getString(R.string.translate_pref))){
             //same code as above
-            boolean useDarkTheme = sharedPref.getBoolean(getString(R.string.translate_pref), false); //translate_pref actually pref to change to dark theme
+            useDarkTheme = sharedPref.getBoolean(getString(R.string.translate_pref), false); //translate_pref actually pref to change to dark theme
+//            if(useDarkTheme){
+//                setTheme(R.style.AppTheme_Dark);
+//            }else{
+//                setTheme(R.style.AppTheme);
+//            }
             Log.i("Angelia", "inapp dark theme preference: " + useDarkTheme);
             //REMINDER - write code for what u want to do when this pref is changed
         }
@@ -217,14 +227,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         if (key.equals(getString(R.string.route_pref))){
             String inputRoutePref = sharedPreferences.getString(key, "default");
             Log.i("Angelia", "inapp route preference: " + inputRoutePref);
-            //TODO use this in gmaps query
         }
 
         if (key.equals(getString(R.string.place_pref))){
             String inputPlacePref = sharedPreferences.getString(key, "no preference");
             Log.i("Angelia", "inapp route preference: " + inputPlacePref);
             preferences.setPlacePref(inputPlacePref);
-            //TODO put into gmaps query
+
         }
     }
 

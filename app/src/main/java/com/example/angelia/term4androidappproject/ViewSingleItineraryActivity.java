@@ -40,6 +40,11 @@ public class ViewSingleItineraryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(MainActivity.useDarkTheme){
+            setTheme(R.style.AppTheme_Dark);
+        } else{
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_single_itinerary);
 

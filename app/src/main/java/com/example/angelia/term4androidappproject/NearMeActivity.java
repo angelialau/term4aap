@@ -1,6 +1,7 @@
 package com.example.angelia.term4androidappproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -35,7 +36,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class NearMeActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener{
 
     String[] places = new String[3];
     Spinner placeSpinner;
@@ -50,10 +51,16 @@ public class NearMeActivity extends FragmentActivity implements OnMapReadyCallba
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        if(MainActivity.useDarkTheme){
+            setTheme(R.style.AppTheme_Dark);
+        } else{
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_near_me);
 

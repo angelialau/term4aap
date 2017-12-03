@@ -6,14 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.angelia.term4androidappproject.NewItineraryActivity">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/homescreenbackground" />
-
     <GridLayout
         android:id="@+id/gridLayoutNewItinerary"
         android:layout_width="match_parent"
@@ -52,9 +44,8 @@
             android:layout_row="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/white"
-            android:background="@android:color/white"
-            android:popupBackground="@android:color/white"/>
+            android:background="@android:color/transparent"
+            android:popupBackground="@color/colorPrimary"/>
 
         <SearchView
             android:id="@+id/autoCompleteItinerarySearch"

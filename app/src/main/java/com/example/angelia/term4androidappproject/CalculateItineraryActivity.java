@@ -1,6 +1,7 @@
 package com.example.angelia.term4androidappproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ public class CalculateItineraryActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Button buttonReturnToMain;
     ProgressBar loading;
+    SharedPreferences sharedPref;
 
     //For calculation
     ItineraryCalculator itineraryCalculator;
@@ -57,6 +59,12 @@ public class CalculateItineraryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(MainActivity.useDarkTheme){
+            setTheme(R.style.AppTheme_Dark);
+        } else{
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculate_itinerary);
 
@@ -154,5 +162,8 @@ public class CalculateItineraryActivity extends AppCompatActivity {
             loading.setVisibility(View.GONE);
         }
     }
+
+
+
 
 }
