@@ -25,6 +25,9 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String>  {
         this.objects = objects;
         this.firstElement = defaultText;
 
+        Log.i("kim", "setText  : "+ setText);
+        Log.i("kim", "defaultText  : "+ defaultText);
+
         setDefaultText(setText,defaultText,defaults);
         inflater = (LayoutInflater.from(context));
     }
@@ -45,8 +48,8 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String>  {
         this.firstElement = objects[0];
         Log.i("kim", String.valueOf(setText.toLowerCase().equals(defaultText.toLowerCase())));
         if (!setText.toLowerCase().equals(defaultText.toLowerCase())) {
-            objects[0] = setText;
-            Log.i("kim","if loop " + setText);
+            objects[0] = defaultText;
+            Log.i("kim","if loop " + defaultText);
         }else{
             Log.i("kim","elseloop " + defaults);
             objects[0] = defaults;
