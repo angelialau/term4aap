@@ -61,7 +61,7 @@ public class CalculateItineraryActivity extends AppCompatActivity {
         calculator.spItineraryCalculator(locations, budget);
         long endTime = System.nanoTime();
 
-        long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+        long duration = (endTime - startTime)/1000000;  //divide by 1000000 to get milliseconds.
         Log.i("results", "result: "+ duration);
 
         //rayson calculator

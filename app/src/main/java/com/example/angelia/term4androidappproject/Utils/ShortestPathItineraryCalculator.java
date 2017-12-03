@@ -75,8 +75,6 @@ public class ShortestPathItineraryCalculator {
      * @param budget: budget to keep within, should default to 20
      */
     public void spItineraryCalculator(ArrayList<String> placesToVisit, double budget){
-
-//        spBestItinerary.put(start, "NA"); //destination, how to get to destination
         double shortestTimeNeeded = Math.pow(2,32);
 
         if(itineraryForDebugging.size()==0){
@@ -143,8 +141,6 @@ public class ShortestPathItineraryCalculator {
         }
 
         Log.i(TAG, "initial itinerary: " + spBestItinerary.toString());
-        Log.i(TAG, "total time needed before relaxation: " + totalTimeNeeded);
-
 
         //format: relax(budget, currentTotalTimeNeeded, modeOfTransport)
         relax(budget, this.publicTransportHashMap, PUBLICTRANSPORT_KEY);
@@ -169,7 +165,7 @@ public class ShortestPathItineraryCalculator {
      *
      */
     public void relax(double budget, HashMap<String, LinkedTreeMap> modeOfTransport, String mode){
-        Log.i("TAG", "entered relax for mode: "+ mode);
+        Log.i(TAG, "entered relax for mode: "+ mode);
 
         //reordering itineraryForDebugging so that it starts from burden edge
         int indexOfBurden = timePath.indexOf(Collections.max(timePath));
@@ -196,10 +192,7 @@ public class ShortestPathItineraryCalculator {
         Log.i(TAG, "timepath after reordering: "+ timePath.toString());
         Log.i(TAG, "costpath after reordering: "+ costPath.toString());
 
-
-
-
-        for (int i = 0; i < itineraryForDebugging.size()-1; i++) { //stop at second last element cos im investigating by pair of locations
+        for (int i = 0; i < itineraryForDebugging.size(); i++) { //stop at second last element cos im investigating by pair of locations
             int indexOfCurrent; //destination
             int indexOfPrev; //origin
             String currentLocation;
@@ -207,8 +200,8 @@ public class ShortestPathItineraryCalculator {
             if(i==0){
                 indexOfPrev = itineraryForDebugging.size()-1; //last element
                 indexOfCurrent = i;
-
-            }else{//i=1 onwards
+            }
+            else{
                 indexOfPrev = i-1;
                 indexOfCurrent = i;
             }
