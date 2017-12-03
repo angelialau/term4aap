@@ -40,8 +40,7 @@ public class CalculateItineraryActivity extends AppCompatActivity {
     HashMap<String, LinkedTreeMap> footmap,taximap,publicmap;
     ArrayList<String> locations = new ArrayList<String>();
     LinkedHashMap<String,String> visited;
-    double budget = 20.0;
-
+    double budget;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference itineraryDatabaseReference;
@@ -75,6 +74,7 @@ public class CalculateItineraryActivity extends AppCompatActivity {
         Log.i(TAG, locations.toString());
 
         date = intent.getStringExtra(MainActivity.DATE_KEY);
+        budget = intent.getDoubleExtra(MainActivity.COST_KEY, 0);
 
         footmap = JsonProcessing.hashMapify(R.raw.foot, this);
         publicmap = JsonProcessing.hashMapify(R.raw.public_transport, this);
@@ -117,7 +117,7 @@ public class CalculateItineraryActivity extends AppCompatActivity {
                 long duration = (endTime - startTime) / 1000000;  //divide by 1000000 to get milliseconds.
                 Log.i("results", "result: " + duration);
             } else {
-                itineraryCalculator = new ItineraryCalculator(footmap,publicmap,taximap, 20);
+                itineraryCalculator = new ItineraryCalculator(footmap,publicmap,taximap, budget);
 
                 Long startTime = System.nanoTime();
                 itineraryCalculator.bruteForceCalculate(locations,visited,0,0,0,"Marina Bay Sands");

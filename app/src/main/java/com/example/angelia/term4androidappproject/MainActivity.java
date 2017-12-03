@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public static String userEmail = null;
     public static String LOCATION_KEY = "locations_list";
     public static String DATE_KEY = "date_key";
+    public static String COST_KEY = "cost_key";
 
     public Button buttonMyItinerary;
     public Button buttonFindNearMe;

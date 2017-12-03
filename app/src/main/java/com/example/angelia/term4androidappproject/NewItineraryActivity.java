@@ -31,6 +31,7 @@ public class NewItineraryActivity extends AppCompatActivity {
     String[] hotels = new String[3];
 
     EditText editTextItineraryDate;
+    EditText editTextCost;
     Spinner spinnerItineraryHotel;
     SearchView autoCompleteItinerarySearch;
     ListView listSearchResult;
@@ -43,6 +44,7 @@ public class NewItineraryActivity extends AppCompatActivity {
     ArrayList<String> itinerary;
     String datekey;
     String hotel;
+    Double cost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class NewItineraryActivity extends AppCompatActivity {
 
         // Linking up all my views
         editTextItineraryDate = findViewById(R.id.editTextItineraryDate);
+        editTextCost = findViewById(R.id.editTextCost);
         spinnerItineraryHotel = findViewById(R.id.spinnerItineraryHotel);
         autoCompleteItinerarySearch = findViewById(R.id.autoCompleteItinerarySearch);
         listSearchResult = findViewById(R.id.listSearchResult);
@@ -123,10 +126,12 @@ public class NewItineraryActivity extends AppCompatActivity {
         Intent intent = getIntent();
         itinerary = intent.getStringArrayListExtra(MainActivity.LOCATION_KEY);
         datekey = intent.getStringExtra(MainActivity.DATE_KEY);
+        cost = intent.getDoubleExtra(MainActivity.COST_KEY, 0);
         if (itinerary == null || datekey == null) {
             itinerary = new ArrayList<>();
         } else {
             editTextItineraryDate.setText(datekey);
+            editTextCost.setText(String.valueOf(cost));
         }
 
         // Setting on click listeners
@@ -143,10 +148,13 @@ public class NewItineraryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (editTextItineraryDate.getText().toString().isEmpty()) {
                     Toast.makeText(v.getContext(),"Date cannot be empty",Toast.LENGTH_SHORT).show();
-                } else if (hotel.isEmpty()){
+                } else if (hotel.isEmpty()) {
                     Toast.makeText(v.getContext(), "Hotel cannot be empty", Toast.LENGTH_SHORT).show();
+                } else if (editTextCost.getText().toString().isEmpty()) {
+                    Toast.makeText(v.getContext(), "Cost cannot be empty", Toast.LENGTH_SHORT).show();
                 } else {
                     datekey = editTextItineraryDate.getText().toString();
+                    cost = Double.parseDouble(editTextCost.getText().toString());
                     if (!itinerary.contains(hotel)){
                         itinerary.add(hotel);
                     }
@@ -154,6 +162,7 @@ public class NewItineraryActivity extends AppCompatActivity {
                     Intent intent = new Intent(v.getContext(),EditItineraryActivity.class);
                     intent.putExtra(MainActivity.LOCATION_KEY, itinerary);
                     intent.putExtra(MainActivity.DATE_KEY, datekey);
+                    intent.putExtra(MainActivity.COST_KEY, cost);
                     startActivity(intent);
                 }
             }
