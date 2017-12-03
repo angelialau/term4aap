@@ -12,6 +12,7 @@ public class ItineraryHolder {
     private String date;
     private String locations;
     private String methods;
+    private String itemKey;
 
     public ItineraryHolder(String date, LinkedHashMap<String, String> itinerary) {
         this.date = date;
@@ -37,5 +38,13 @@ public class ItineraryHolder {
 
     public String getMethods() {
         return methods;
+    }
+
+    public String getItemKey() {
+        return itemKey;
+    }
+
+    public void setItemKey(String itemKey) {
+        this.itemKey = itemKey;
     }
 }

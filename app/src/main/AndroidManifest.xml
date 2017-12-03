@@ -47,7 +47,8 @@
             android:label="@string/title_activity_find_near_me" />
         <activity android:name=".NewItineraryActivity" />
         <activity android:name=".EditItineraryActivity" />
-        <activity android:name=".CalculateItineraryActivity"></activity>
+        <activity android:name=".CalculateItineraryActivity" />
+        <activity android:name=".ViewSingleItineraryActivity"></activity>
     </application>
 
 </manifest>

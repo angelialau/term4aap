@@ -20,8 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.internal.LinkedTreeMap;
 
 
-import java.net.URL;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -39,6 +37,7 @@ public class CalculateItineraryActivity extends AppCompatActivity {
 
     private String UID;
     private ItineraryHolder itineraryHolder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,11 +1,11 @@
 package com.example.angelia.term4androidappproject;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.example.angelia.term4androidappproject.Adapters.ViewItineraryAdapter;
 import com.example.angelia.term4androidappproject.Models.ItineraryHolder;
@@ -34,6 +34,8 @@ public class ViewItinerariesActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
 
     private String UID;
+    
+    private String TAG = "ViewItinerariesActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class ViewItinerariesActivity extends AppCompatActivity {
                     attachDatabaseReadListener();
                 } else {
                     detachDatabaseReadListener();
+                    Log.i(TAG, "onAuthStateChanged: Database listener detached");
                     viewItineraryAdapter.clear();
                 }
             }
@@ -91,23 +94,29 @@ public class ViewItinerariesActivity extends AppCompatActivity {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     ItineraryHolder itineraryHolder = dataSnapshot.getValue(ItineraryHolder.class);
+                    itineraryHolder.setItemKey(dataSnapshot.getKey());
                     viewItineraryAdapter.add(itineraryHolder);
+                    Log.i(TAG, "onChildAdded: called");
                 }
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    Log.i(TAG, "onChildChanged: called");
                 }
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    Log.i(TAG, "onChildRemoved: called");
                 }
 
                 @Override
                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    Log.i(TAG, "onChildChanged: called");
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
+                    Log.i(TAG, "onChildChanged: called");
                 }
             };
             itineraryDatabaseReference.addChildEventListener(childEventListener);

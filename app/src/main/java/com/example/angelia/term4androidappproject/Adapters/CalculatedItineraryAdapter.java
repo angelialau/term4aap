@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.angelia.term4androidappproject.CalculateItineraryActivity;
 import com.example.angelia.term4androidappproject.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -25,6 +27,11 @@ public class CalculatedItineraryAdapter extends RecyclerView.Adapter<CalculatedI
     public CalculatedItineraryAdapter(LinkedHashMap<String,String> itinerary) {
         this.methodsOfTravel = new ArrayList<>(itinerary.values());
         this.placesToGo = new ArrayList<>(itinerary.keySet());
+    }
+
+    public CalculatedItineraryAdapter(String[] placesToGo, String[] methodsOfTravel) {
+        this.placesToGo = Arrays.asList(placesToGo);
+        this.methodsOfTravel = Arrays.asList(methodsOfTravel);
     }
 
     public static class CalculatedViewHolder extends RecyclerView.ViewHolder {
