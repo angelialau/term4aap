@@ -9,7 +9,7 @@
         />
     <ListPreference
         android:key="@string/route_pref"
-        android:title="@string/routes"
+        android:title="Routes"
         android:defaultValue="@string/best_route"
         android:entries="@array/route_entries"
         android:entryValues="@array/route_values"

@@ -11,7 +11,6 @@
     <string name="sign_out">Sign out</string>
 
     <!-- settings strings -->
-    <string name="routes">Routes</string>
     <string name="best_route">Best route</string>
     <string name="least_walking">Least walking</string>
     <string name="least_transfers">Least transfers</string>
