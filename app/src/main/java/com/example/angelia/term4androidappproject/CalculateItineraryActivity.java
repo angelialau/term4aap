@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.angelia.term4androidappproject.Adapters.CalculatedItineraryAdapter;
 import com.example.angelia.term4androidappproject.Models.ItineraryHolder;
@@ -30,6 +31,7 @@ public class CalculateItineraryActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     Button buttonReturnToMain;
+    String typeOfCalculation;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference itineraryDatabaseReference;
@@ -52,6 +54,8 @@ public class CalculateItineraryActivity extends AppCompatActivity {
         // Calculating Itinerary
         final Intent intent = getIntent();
         ArrayList<String> locations = intent.getStringArrayListExtra(MainActivity.LOCATION_KEY);
+        typeOfCalculation = intent.getStringExtra("Type");
+        Log.i("kim","message"  + typeOfCalculation);
         Log.i("Angelia", locations.toString());
         double budget = 20.0;
 
@@ -64,46 +68,57 @@ public class CalculateItineraryActivity extends AppCompatActivity {
 
         LinkedHashMap<String,String> visited = new LinkedHashMap<>();
 
-        /*
-        ItineraryCalculator calculator = new ItineraryCalculator(footmap,publicmap,taximap, 20);
 
-        Long startTime = System.nanoTime();
-        calculator.bruteForceCalculate(locations,visited,0,0,0,"Marina Bay Sands");
-        Long endTime = System.nanoTime();
-        Double duration = (endTime - startTime)/1000000.0;
+        if(typeOfCalculation.equals(EditItineraryActivity.APPROX)){
+            ShortestPathItineraryCalculator calculator = new ShortestPathItineraryCalculator(footmap,publicmap,taximap);
+            long startTime = System.nanoTime();
+            calculator.spItineraryCalculator(locations, budget);
+            long endTime = System.nanoTime();
 
-        Log.i("Calculate Itinerary", "onCreate: running time of calculation in milliseconds = " + duration);
-        Log.i("Calculate Itinerary", "onCreate: " + calculator.getBestTime());
+            long duration = (endTime - startTime)/1000000;  //divide by 1000000 to get milliseconds.
+            Log.i("results", "result: "+ duration);
 
-        */
+            // Putting calculated itinerary on recyclerview
+            recyclerView.setAdapter(new CalculatedItineraryAdapter(calculator.getSpBestItinerary()));
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ShortestPathItineraryCalculator calculator = new ShortestPathItineraryCalculator(footmap,publicmap,taximap);
-        long startTime = System.nanoTime();
-        calculator.spItineraryCalculator(locations, budget);
-        long endTime = System.nanoTime();
+            // Setting up Firebase to connect to
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            firebaseAuth = FirebaseAuth.getInstance();
 
-        long duration = (endTime - startTime)/1000000;  //divide by 1000000 to get milliseconds.
-        Log.i("results", "result: "+ duration);
+            UID = firebaseAuth.getCurrentUser().getUid();
+            itineraryDatabaseReference = firebaseDatabase.getReference().child(UID);
+
+            // Sending data to Firebase
+            itineraryHolder = new ItineraryHolder(date, calculator.getSpBestItinerary());
+            itineraryDatabaseReference.push().setValue(itineraryHolder);
+
+        } else {
+            ItineraryCalculator calculator = new ItineraryCalculator(footmap,publicmap,taximap, 20);
+
+            Long startTime = System.nanoTime();
+            calculator.bruteForceCalculate(locations,visited,0,0,0,"Marina Bay Sands");
+            Long endTime = System.nanoTime();
+            Double duration = (endTime - startTime)/1000000.0;
+
+            Log.i("Calculate Itinerary", "onCreate: running time of calculation in milliseconds = " + duration);
+            Log.i("Calculate Itinerary", "onCreate: " + calculator.getBestTime());
+            // Putting calculated itinerary on recyclerview
+            recyclerView.setAdapter(new CalculatedItineraryAdapter(calculator.getBestItinerary())); //rayson calculator
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            // Setting up Firebase to connect to
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            firebaseAuth = FirebaseAuth.getInstance();
+
+            UID = firebaseAuth.getCurrentUser().getUid();
+            itineraryDatabaseReference = firebaseDatabase.getReference().child(UID);
+
+            // Sending data to Firebase
+            itineraryHolder = new ItineraryHolder(date, calculator.getBestItinerary()); //raysons calculator
 
 
-        // Putting calculated itinerary on recyclerview
-//        recyclerView.setAdapter(new CalculatedItineraryAdapter(calculator.getBestItinerary())); //rayson calculator
-
-        recyclerView.setAdapter(new CalculatedItineraryAdapter(calculator.getSpBestItinerary()));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // Setting up Firebase to connect to
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        UID = firebaseAuth.getCurrentUser().getUid();
-        itineraryDatabaseReference = firebaseDatabase.getReference().child(UID);
-
-        // Sending data to Firebase
-//        itineraryHolder = new ItineraryHolder(date, calculator.getBestItinerary()); //raysons calculator
-        itineraryHolder = new ItineraryHolder(date, calculator.getSpBestItinerary());
-        itineraryDatabaseReference.push().setValue(itineraryHolder);
-
+        }
         // Set button to return to MainActivity
         buttonReturnToMain.setOnClickListener(new View.OnClickListener() {
             @Override

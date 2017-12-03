@@ -19,6 +19,10 @@ public class EditItineraryActivity extends AppCompatActivity {
 
     Button buttonBruteForceItinerary;
     Button buttonAddMoreLocation;
+    Button buttonApproximate;
+
+    public static String BRUTE = "brute";
+    public static String APPROX = "approximate";
 
     LinearLayoutManager linearLayoutManager;
     RecyclerView recyclerShowLocations;
@@ -39,6 +43,7 @@ public class EditItineraryActivity extends AppCompatActivity {
 
         // Wiring up all my views
         buttonBruteForceItinerary = findViewById(R.id.buttonBruteForce);
+        buttonApproximate = findViewById(R.id.buttonApproximate);
         buttonAddMoreLocation = findViewById(R.id.buttonAddMoreLocation);
         recyclerShowLocations = findViewById(R.id.recyclerShowLocations);
 
@@ -57,6 +62,7 @@ public class EditItineraryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),CalculateItineraryActivity.class);
+                intent.putExtra("Type", BRUTE);
                 intent.putStringArrayListExtra(MainActivity.LOCATION_KEY,locationsFromIntent);
                 intent.putExtra(MainActivity.DATE_KEY,dateFromIntent);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -68,6 +74,17 @@ public class EditItineraryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),NewItineraryActivity.class);
+                intent.putStringArrayListExtra(MainActivity.LOCATION_KEY,locationsFromIntent);
+                intent.putExtra(MainActivity.DATE_KEY,dateFromIntent);
+                startActivity(intent);
+            }
+        });
+
+        buttonApproximate.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent (v.getContext(),CalculateItineraryActivity.class);
+                intent.putExtra("Type", APPROX);
                 intent.putStringArrayListExtra(MainActivity.LOCATION_KEY,locationsFromIntent);
                 intent.putExtra(MainActivity.DATE_KEY,dateFromIntent);
                 startActivity(intent);
