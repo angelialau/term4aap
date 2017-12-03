@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 import com.example.angelia.term4androidappproject.Adapters.EditItineraryAdapter;
@@ -39,6 +40,7 @@ public class EditItineraryActivity extends AppCompatActivity {
         } else{
             setTheme(R.style.AppTheme);
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_itinerary);
 

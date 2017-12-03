@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -49,9 +50,9 @@ public class NewItineraryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if(MainActivity.useDarkTheme){
-            setTheme(R.style.AppTheme_Dark);
+            setTheme(R.style.AppTheme_Dark_NoActionBar);
         } else{
-            setTheme(R.style.AppTheme);
+            setTheme(R.style.AppTheme_NoActionBar);
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_itinerary);
